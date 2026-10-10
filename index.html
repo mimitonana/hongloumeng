@@ -253,38 +253,9 @@ let selected=null, view={x:0,y:0,k:1};
 try{const s=localStorage.getItem("hlm-ch"); if(s) chapter=Math.min(120,Math.max(1,parseInt(s)||1));}catch(e){}
 const QP=new URLSearchParams(location.search); if(QP.get("ch")) chapter=Math.min(120,Math.max(1,parseInt(QP.get("ch"))||1)); if(QP.get("all")){ mode=QP.get("all")==="end"?"end":"start"; showAll=true; }; 
 const APPEARANCE = {
-  "source": {
-    "url": "https://www.xiaohongshu.com/discovery/item/6a75d9ca00000000330301bb",
-    "title": "吐血整理！红楼梦里丝织物的古典颜色大全集！",
-    "swatches": {
-      "雨过天青": "#b8d9d2",
-      "秋香": "#b8a848",
-      "松绿": "#3c8c6e",
-      "霞影纱": "#f2b8b8",
-      "月白": "#e8f0f2",
-      "藕荷": "#e4c6d0",
-      "大红": "#c82423",
-      "杨妃": "#f4c2c2",
-      "桃红": "#f0b0b8",
-      "石榴红": "#d84840",
-      "杏子红": "#e67060",
-      "蜜合": "#f2e8d4",
-      "鹅黄": "#f2dd98",
-      "豆绿": "#b8d8a8",
-      "水绿": "#94c8a8",
-      "松花": "#b8c068",
-      "柳绿": "#afdd22",
-      "葱绿": "#88b868",
-      "莲青": "#588882",
-      "石青": "#283c50"
-    },
-    "rose_cover_sample": "#be6c9c",
-    "note": "单独色卡的 HEX / RGB 优先；玫瑰紫取封面色条。界面文字、卡片与深色背景按参考色相调整明度，以保持可读性。"
-  },
   "palettes": [
     {
-      "id": "rose",
-      "name": "霞影纱",
+      "id": "p1",
       "tokens": {
         "--bg": "#f2b8b8",
         "--panel": "#f7d9d3",
@@ -317,8 +288,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "yangfei",
-      "name": "杨妃",
+      "id": "p2",
       "tokens": {
         "--bg": "#f4c2c2",
         "--panel": "#fadfdf",
@@ -351,8 +321,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "peach",
-      "name": "桃红",
+      "id": "p3",
       "tokens": {
         "--bg": "#f0b0b8",
         "--panel": "#f3ccd3",
@@ -385,8 +354,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "lotus",
-      "name": "藕荷",
+      "id": "p4",
       "tokens": {
         "--bg": "#e4c6d0",
         "--panel": "#efdae5",
@@ -419,8 +387,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "cream",
-      "name": "蜜合",
+      "id": "p5",
       "tokens": {
         "--bg": "#f2e8d4",
         "--panel": "#faf4e6",
@@ -453,8 +420,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "green",
-      "name": "豆绿",
+      "id": "p6",
       "tokens": {
         "--bg": "#b8d8a8",
         "--panel": "#deedcb",
@@ -487,8 +453,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "scallion",
-      "name": "葱绿",
+      "id": "p7",
       "tokens": {
         "--bg": "#88b868",
         "--panel": "#d3e8bd",
@@ -521,8 +486,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "autumn",
-      "name": "秋香",
+      "id": "p8",
       "tokens": {
         "--bg": "#b8a848",
         "--panel": "#d4c77d",
@@ -555,8 +519,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "goose",
-      "name": "鹅黄",
+      "id": "p9",
       "tokens": {
         "--bg": "#f2dd98",
         "--panel": "#faf1cc",
@@ -589,8 +552,7 @@ const APPEARANCE = {
       }
     },
     {
-      "id": "blue",
-      "name": "月白",
+      "id": "p0",
       "tokens": {
         "--bg": "#e8f0f2",
         "--panel": "#f0f6f7",
@@ -627,15 +589,15 @@ const APPEARANCE = {
 ;
 const PALETTES=APPEARANCE.palettes;
 // Resolve earlier palette URLs and saved preferences into six independent colors.
-const LEGACY_PALETTES={a:'blue',b:'green',c:'lotus',d:'blue',e:'rose',f:'green',g:'lotus',h:'blue',i:'lotus',j:'rose',k:'lotus',l:'rose',m:'lotus',n:'blue',o:'lotus',honey:'lotus',teal:'green'};
+const LEGACY_PALETTES={};
 const PALETTE_IDS=new Set(PALETTES.map(p=>p.id));
-let palette='blue',savedTheme='';
-try{palette=localStorage.getItem('hlm-pal')||'blue';savedTheme=localStorage.getItem('hlm-theme')||''}catch(_){}
+let palette='p0',savedTheme='';
+try{palette=localStorage.getItem('hlm-pal')||'p0';savedTheme=localStorage.getItem('hlm-theme')||''}catch(_){}
 if(QP.has('pal'))palette=QP.get('pal');
 palette=LEGACY_PALETTES[palette]||palette;
-if(!PALETTE_IDS.has(palette))palette='blue';
+if(!PALETTE_IDS.has(palette))palette='p0';
 // Preserve retained former dark colors; removed colors fall back to their light counterpart.
-if(savedTheme==='dark')palette=({rose:'peach',lotus:'autumn'})[palette]||palette;
+
 function applyAppearance(){
   const root=document.documentElement,chosen=PALETTES.find(p=>p.id===palette);
   root.dataset.pal=palette;
@@ -1007,23 +969,25 @@ $("#px").onclick=closePanel;
 // ---------- 平移缩放 ----------
 function apply(){vp.setAttribute("transform",`translate(${view.x},${view.y}) scale(${view.k})`)}
 let fitMode=false, fitReady=false;
+const KMAX=0.95, KMIN=0.78;          // 默认缩放：不放得太大，也不缩到字看不清
 function fit(all){ fitMode=!!all;
   const r=svg.getBoundingClientRect(); const vis=DATA.nodes.filter(n=>visN(n)&&n.px!=null&&isFinite(n.px));
+  const phone=r.width<720, kmin=phone?.8:KMIN, kmax=phone?.9:KMAX;
   const tree=vis.filter(n=>n.py<PAD+5.0*SY);          // 默认只对准上方的家谱区
   const use=(!all&&tree.length>=4)?tree:(vis.length>0?vis:DATA.nodes);
   const box=ns=>({x0:Math.min(...ns.map(n=>n.px-n.w/2)),x1:Math.max(...ns.map(n=>n.px+n.w/2)),y0:Math.min(...ns.map(n=>n.py-n.h/2)),y1:Math.max(...ns.map(n=>n.py+n.h/2))});
   const fitK=(bx,px,py)=>Math.min(r.width/(bx.x1-bx.x0+2*px),r.height/(bx.y1-bx.y0+2*py));
-  const bb=box(use); let k=Math.min(1.3,fitK(bb,30,50));
-  if(!all&&mode==="ch"&&k<0.85){                      // 图太大放不下：让本回故事的中心人物居中（按本回正文里出现最多的人物算）
+  const bb=box(use); let k=Math.min(kmax,fitK(bb,30,50));
+  if(!all&&mode==="ch"&&k<kmin){                      // 图太大放不下：让本回故事的中心人物居中（按本回正文里出现最多的人物算）
     const fn=((DATA.chapters[chapter-1]||{}).f||[]).map(id=>byId[id]).filter(n=>n&&visN(n)&&isFinite(n.px));
-    if(fn.length&&r.width<720){ const m=fn[0], kk=Math.min(1,Math.max(.8,fitK(box([m]),SX*1.6,SY*1.6)));      // 手机：只对准本回最主要的那个人，周围一圈亲属自然入画
+    if(fn.length&&phone){ const m=fn[0], kk=Math.min(kmax,Math.max(kmin,fitK(box([m]),SX*1.6,SY*1.6)));      // 手机：只对准本回最主要的那个人，周围一圈亲属自然入画
       setView(kk,r.width/2-m.px*kk,r.height*(.46)-m.py*kk,fitReady); return; }
-    if(fn.length){ const fb=box(fn), kk=Math.max(.85,Math.min(1.3,fitK(fb,SX*1.4,SY*1.1)));
+    if(fn.length){ const fb=box(fn), kk=Math.max(kmin,Math.min(kmax,fitK(fb,SX*1.4,SY*1.1)));
       setView(kk,r.width/2-(fb.x0+fb.x1)/2*kk,r.height/2-(fb.y0+fb.y1)/2*kk,fitReady); return; }
   }
   const x0=bb.x0-30,x1=bb.x1+30,y0=bb.y0-50,y1=bb.y1+30;
-  if(!all&&k<0.85){                                    // 图太宽时，保证字看得清，并以宝玉为中心，其余往两边拖
-    k=0.85; const f=byId.baoyu; const cx=visN(f)?f.px:(x0+x1)/2;
+  if(!all&&k<kmin){                                    // 图太宽时，保证字看得清，并以宝玉为中心，其余往两边拖
+    k=kmin; const f=byId.baoyu; const cx=visN(f)?f.px:(x0+x1)/2;
     setView(k,r.width/2-cx*k,Math.max(20,(r.height-(y1-y0)*k)/2)-y0*k,fitReady); return;
   }
   setView(k,(r.width-(x1-x0)*k)/2-x0*k,(r.height-(y1-y0)*k)/2-y0*k,fitReady);
@@ -1041,7 +1005,7 @@ function setView(k,x,y,animate){
 }
 function centerOn(n){
   const r=svg.getBoundingClientRect(), wide=r.width>720;
-  const k=Math.max(view.k,.85), rightPad=wide?330:0;
+  const k=Math.max(view.k,.8), rightPad=wide?330:0;
   // 手机竖屏：详情是从底部升起的面板，人物要落在面板上方那块可见区域的正中
   const sheet=wide?0:Math.min(r.height*.46,$("#panel").offsetHeight||r.height*.4);
   setView(k,(r.width-rightPad)/2-n.px*k,(r.height-sheet)/2-n.py*k,true);
@@ -1169,23 +1133,22 @@ function markGrid(){
 paletteMenu.innerHTML='<div class="picker-head"><span>选择配色</span></div><div class="palette-options"></div>';
 PALETTES.forEach(p=>{
   const b=document.createElement('button');b.type='button';b.className='palette-option';b.dataset.pal=p.id;
-  b.innerHTML=`<span class="palette-sample" aria-hidden="true" ><i></i><i></i><i></i></span><span class="palette-name">${p.name}</span><span class="check" aria-hidden="true">✓</span>`;
+  b.setAttribute('aria-label','配色 '+(PALETTES.indexOf(p)+1));
+  b.innerHTML=`<span class="palette-sample" aria-hidden="true" ><i></i><i></i><i></i></span><span class="check" aria-hidden="true">✓</span>`;
   b.onclick=()=>{palette=p.id;applyAppearance();saveAppearance();markAppearance()};
   paletteMenu.querySelector('.palette-options').appendChild(b);
 });
 function saveAppearance(){
   try{localStorage.setItem('hlm-pal',palette);localStorage.removeItem('hlm-theme')}catch(_){}
   // An explicit palette URL should keep reflecting the option currently on screen.
-  try{const url=new URL(location.href);if(palette==='blue')url.searchParams.delete('pal');else url.searchParams.set('pal',palette);history.replaceState(null,'',url)}catch(_){}
+  try{const url=new URL(location.href);if(palette==='p0')url.searchParams.delete('pal');else url.searchParams.set('pal',palette);history.replaceState(null,'',url)}catch(_){}
 }
 function markAppearance(){
   paletteMenu.querySelectorAll('[data-pal]').forEach(b=>{
     b.setAttribute('aria-pressed',String(b.dataset.pal===palette));
     const chosen=PALETTES.find(p=>p.id===b.dataset.pal),tokens=chosen.tokens,sample=b.querySelector('.palette-sample');
-    b.querySelector('.palette-name').textContent=chosen.name;
     [['--sample-bg','--bg'],['--sample-a','--c-jia1'],['--sample-b','--c-jia2'],['--sample-c','--c-other']].forEach(([key,token])=>sample.style.setProperty(key,tokens[token]));
   });
-  paletteButton.title=PALETTES.find(p=>p.id===palette).name;
 }
 function menuButton(menu){return menu===grid?cbtn:paletteButton}
 function closeMenu(menu,restore=false){
@@ -1225,8 +1188,9 @@ function menuKeys(e,menu){
 }
 [grid,paletteMenu].forEach(menu=>{
   menu.addEventListener('keydown',e=>menuKeys(e,menu));
-  menu.addEventListener('focusout',()=>requestAnimationFrame(()=>{const active=document.activeElement;if(!menu.hidden&&!menu.contains(active)&&active!==menuButton(menu))closeMenu(menu)}));
 });
+// 键盘 Tab 走出菜单时收起。注意不能用 focusout：Safari 里点按钮不会让按钮获得焦点，按下的瞬间焦点就回到 body，菜单会在点击生效前先被关掉（表现为「点不动」）。
+document.addEventListener('focusin',e=>{[grid,paletteMenu].forEach(menu=>{ if(!menu.hidden&&!menu.contains(e.target)&&e.target!==menuButton(menu)) closeMenu(menu); });});
 function repositionMenus(){if(!grid.hidden)placeMenu(grid);if(!paletteMenu.hidden)placeMenu(paletteMenu)}
 window.addEventListener('resize',repositionMenus);window.visualViewport?.addEventListener('resize',repositionMenus);window.visualViewport?.addEventListener('scroll',repositionMenus);
 document.addEventListener('pointerdown',e=>{
