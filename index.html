@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<!--
+  来源与版本说明（完整版见同目录 SOURCES.md）
+  正文底本：Project Gutenberg《紅樓夢》#24264，120 回，繁体转简体。页面未标明底本，判断为程高本一系，未与其他版本逐回对照。
+  所有「第几回」按该文本的回目计算。人物介绍、布局、标签措辞为本项目自写；贾代化已故为推断。
+-->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>红楼梦人物关系 · 随读随看</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Long+Cang&text=%E7%BA%A2%E6%A5%BC%E6%A2%A6%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB&display=swap">
+
+<style>
+
+/* Surface tokens. Controls use 10px corners, popovers 16px, graph cards keep their existing geometry. */
+:root{color-scheme:light;--bg:#e8f0f2;--panel:#f0f6f7;--card:#f0f6f7;--card-m:#c5d8e6;--card-f:#ead3e3;--ink:#243b52;--ink2:#3e566d;--ink3:#475d71;--accent:#315671;--c-jia1:#315671;--c-jia2:#407973;--c-other:#9f597b;--rel:#4e696a;--rel-bg:#dce9e5;--ln:#667f97;--tie:#825340;--pin:#3a5e7a;--line:#c7d1d7;--dot:#d1dbe0;--seal:#315671;--seal-bg:#e1e9ec;--on-accent:#ffffff;--shadow:0 12px 36px rgba(36,59,82,.17),0 2px 5px rgba(36,59,82,.05);--brand-bg:#283c50;--brand-ink:#e8f0f2;--native-scheme:light;}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"PingFang SC",-apple-system,BlinkMacSystemFont,"Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{cursor:default}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#app{display:grid;grid-template-rows:auto minmax(0,1fr);height:100%;height:100dvh}
+/* Layers: canvas 0, canvas overlays 5, mast 10, body popovers 60. */
+header.mast{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:24px;min-height:80px;padding:8px 24px;background:var(--panel);border-bottom:1px solid var(--line);position:relative;z-index:10}
+.brand{margin:0;display:flex;align-items:center;gap:10px;height:64px;padding-right:20px;border-right:1px solid var(--line);white-space:nowrap}
+.plaque{display:flex;align-items:center;justify-content:center;flex:none;width:40px;height:64px;padding:2px 8px;background:var(--brand-bg);border-radius:8px;color:var(--brand-ink)}
+.pt{writing-mode:vertical-rl;font-family:"Long Cang","STKaiti","Kaiti SC",cursive;font-size:19px;font-weight:400;letter-spacing:.04em;line-height:1;white-space:nowrap;flex:none}
+.brand .sub{writing-mode:vertical-rl;font-size:12px;letter-spacing:.18em;line-height:1.4;font-weight:500;color:var(--ink2);white-space:nowrap;flex:none}
+.reading-bar{display:grid;grid-template-columns:minmax(0,1fr) auto 44px;align-items:center;gap:16px;min-width:0}
+.chapter-line{display:flex;align-items:center;gap:14px;min-width:0}
+.chapter-line .chapctl{flex:none}
+.chapctl{display:flex;align-items:center;gap:2px;white-space:nowrap}
+.chapctl button{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:44px;border:0;border-radius:10px;background:transparent;transition:background .16s,color .16s}
+.chapctl button:hover:not(:disabled){background:var(--bg)}
+.chapctl button:active:not(:disabled){background:color-mix(in srgb,var(--accent) 10%,var(--bg))}
+.chapctl #prev,.chapctl #next{width:44px;color:var(--ink2)}
+.chapctl #prev:disabled,.chapctl #next:disabled{opacity:.25}
+.chapctl #cbtn{padding:0 12px;font-size:15px;font-weight:600;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.chapctl #cbtn[aria-expanded=true]{background:var(--bg)}
+.chapctl svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.chapctl .car{width:12px;height:12px;color:var(--ink3);transition:transform .16s}
+#cbtn[aria-expanded=true] .car{transform:rotate(180deg)}
+.htitle{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--ink2);font-size:13px;line-height:1.7;letter-spacing:.025em}
+.search{position:relative;min-width:0;width:44px;transition:width .24s cubic-bezier(.2,.7,.2,1)}.search.open{width:clamp(144px,16vw,192px)}
+.search>svg{position:absolute;left:13px;top:14px;width:16px;height:16px;fill:none;stroke:var(--ink3);stroke-width:1.6;stroke-linecap:round;pointer-events:none}
+.search input{width:100%;height:44px;padding:0 34px 0 38px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:13px;transition:border-color .16s,background .16s;outline-offset:2px}
+.search input::placeholder{color:var(--ink3)}
+.search:not(.open) input{padding:0;color:transparent;caret-color:transparent;background:transparent;border-color:transparent;cursor:pointer}.search:not(.open) input::placeholder{color:transparent}.search:not(.open) input:hover{background:var(--bg)}.search:not(.open) #qclear{display:none}
+.search input:focus{border-color:var(--accent);background:var(--card)}
+.search input:focus::placeholder{color:transparent}
+#qclear{position:absolute;right:0;top:0;width:44px;height:44px;border:0;border-radius:8px;background:transparent;color:var(--ink3);font-size:18px}
+#qclear:hover{color:var(--ink)}
+.search:has(#qclear:not([hidden])) input{padding-right:44px}
+#sug{display:none;position:absolute;top:52px;right:0;width:max(100%,260px);max-width:calc(100vw - 24px);padding:5px;border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:var(--shadow);z-index:60}
+.soption{display:flex;justify-content:space-between;align-items:center;gap:18px;width:100%;min-height:44px;padding:8px 10px;border:0;border-radius:8px;background:transparent;text-align:left;font-size:14px}
+.soption .house{font-size:12px;color:var(--ink3)}
+.soption:hover,.soption[aria-selected=true]{background:var(--bg)}
+#sug .none{padding:12px 10px;font-size:13px;line-height:1.6;color:var(--ink2)}
+.palette-btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:0 10px;border:0;border-radius:10px;background:transparent;font-size:13px;color:var(--ink2);white-space:nowrap}
+.palette-btn:hover,.palette-btn[aria-expanded=true]{background:var(--bg)}
+.palette-preview{display:flex;align-items:center;gap:2px}
+.palette-preview i{width:7px;height:17px;border-radius:3px;background:var(--c-jia1)}
+.palette-preview i:nth-child(2){background:var(--c-jia2)}
+.palette-preview i:nth-child(3){background:var(--c-other)}
+/* Both menus live outside the mast to avoid positioning and clipping conflicts. */
+.popover{position:fixed;z-index:60;border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:var(--shadow);padding:12px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.picker-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 2px 10px;font-size:12px;font-weight:500;color:var(--ink2)}
+.picker-head button{border:0;background:transparent;padding:8px;color:var(--accent);font-size:12px}
+.gtop{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.gtop button{min-height:44px;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-size:13px;font-weight:500}
+.gtop button:hover{border-color:var(--accent)}
+.chapter-list{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.chapter-list button{min-width:0;height:44px;padding:0;border:0;border-radius:9px;background:transparent;color:var(--ink2);font-size:13px;font-variant-numeric:tabular-nums}
+.chapter-list button:hover{background:var(--bg);color:var(--ink)}
+#cgrid button.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+#palette-menu{width:304px}
+.palette-options{display:grid;grid-template-columns:repeat(5,1fr);gap:12px 4px}
+.palette-option{display:flex;flex-direction:column;align-items:center;gap:7px;padding:4px 0 2px;border:0;border-radius:12px;background:transparent;font-size:11.5px;color:var(--ink2);letter-spacing:.04em}
+.palette-option:hover .palette-sample{transform:translateY(-1px)}
+.palette-option[aria-pressed=true]{color:var(--ink);font-weight:600}
+.palette-option .check{display:none}
+.palette-option:focus-visible{outline:none}.palette-option:focus-visible .palette-sample{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--accent)}
+.palette-sample{display:flex;align-items:center;justify-content:center;gap:4px;width:48px;height:48px;border-radius:13px;border:1px solid rgba(50,55,65,.12);background:var(--sample-bg);transition:transform .16s,box-shadow .16s}
+.palette-option[aria-pressed=true] .palette-sample{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--accent)}
+.palette-sample i{width:7px;height:22px;border-radius:3.5px;background:var(--sample-a)}
+.palette-sample i:nth-child(2){background:var(--sample-b)}
+.palette-sample i:nth-child(3){background:var(--sample-c)}
+main{position:relative;min-height:0;overflow:hidden;background-color:var(--bg);background-image:radial-gradient(var(--dot) .75px,transparent .9px);background-size:24px 24px}
+svg{width:100%;height:100%;display:block;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;background:transparent}
+svg.drag{cursor:grabbing}svg text{font-family:inherit}
+.label-leader{stroke:var(--rel);stroke-width:1;stroke-linecap:round;opacity:.65}.label-leader.tie{stroke:var(--tie)}
+.tl{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tl.pr{stroke:var(--ln);stroke-width:1.3}.tl.pr.dsh{stroke-dasharray:4 3}.tdot{fill:var(--ln)}
+.tl.sp{stroke:var(--ink3);stroke-width:1.5}.sring{fill:var(--bg);stroke:var(--ink3);stroke-width:1.3}
+.tl.sib{stroke:var(--ink3);stroke-width:1.2;stroke-dasharray:5 4}
+.sibl{font-size:10px;fill:var(--ink3);letter-spacing:.08em;paint-order:stroke;stroke:var(--bg);stroke-width:3px}
+.tl.kin{stroke:var(--rel);stroke-width:1.6;stroke-dasharray:6 5}.tl.kin.cur{stroke-width:1.7}.tl.kin.far{stroke-width:1.5;opacity:.85}.kdot{fill:var(--rel)}
+.tl.tie{stroke:var(--tie);stroke-width:2;stroke-dasharray:.1 6}.kdot.tie,.arwp{fill:var(--tie)}
+#gE>*,#gT>*{transition:opacity .22s}.dimmed{opacity:.16!important}.tl.pr.on{stroke-width:2}.tl.sp.on{stroke-width:2.2}.tl.kin.on,.tl.tie.on{stroke-width:2.2}.kchip.dimmed{opacity:.16!important}#gE{transition:opacity .25s}.rl,.rdot{opacity:.95}.rl{fill:none;stroke-linecap:round}
+.head{font-size:12px;fill:var(--ink3);letter-spacing:.2em;font-weight:600}
+.node{cursor:pointer}.node text{pointer-events:none}
+.node .card{fill:var(--card);stroke:var(--line);stroke-width:1;filter:drop-shadow(0 1px 2px rgba(31,47,63,.07));transition:stroke .15s}
+.node:hover .card{stroke:var(--ink3)}.node .bar{opacity:.95}
+.node .nm{font-size:14.5px;fill:var(--ink);font-weight:600;letter-spacing:.04em}.node .sub{font-size:10px;fill:var(--ink3);letter-spacing:.03em}
+.node.mal .card{fill:var(--card-m)}.node.fem .card{fill:var(--card-f)}
+.pill .card{filter:none}.pill .pn{font-size:12px;fill:var(--ink);font-weight:500}
+.node.dead{opacity:.5}.node.dead .nm,.node.dead .sub,.node.dead .pn,.node.dead .hometxt{fill:var(--ink3)}.node.dead:hover .card{stroke:var(--line)}
+.node.dim{opacity:.18}.node.sel .card{stroke:var(--accent);stroke-width:1.4;filter:drop-shadow(0 3px 7px color-mix(in srgb,var(--accent) 15%,transparent))}
+.node.hl .ring{opacity:1}.ring{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0}
+.node .pop{animation:pop .5s ease-out}@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.node.ph{cursor:pointer}.node.ph .card{stroke-dasharray:4 3;fill:var(--card-f);opacity:.9}.node.ph .nm{font-size:20px;fill:var(--ink3);font-weight:400}
+.nbox,.seal{display:none!important}
+.elabel{font-size:11px;fill:var(--ink2);paint-order:stroke;stroke:var(--bg);stroke-width:4px;pointer-events:none}
+.kchip rect{fill:var(--rel-bg);stroke:var(--rel);stroke-width:1}.kchip text{font-size:10px;fill:var(--rel);font-weight:500;letter-spacing:.06em}
+.kchip.tie rect{fill:color-mix(in srgb,var(--tie) 10%,var(--panel));stroke:var(--tie)}.kchip.tie text{fill:var(--tie)}
+.home{pointer-events:none}.hometxt{font-size:10px;fill:var(--ink2);letter-spacing:.04em}.pin path{fill:var(--pin)}.pin .pinhole{fill:var(--card)}
+#cap{position:absolute;top:16px;left:20px;z-index:5;max-width:calc(100% - 40px);display:flex;padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-size:12px;color:var(--ink2)}
+#cap:has(.new:empty){display:none}.new{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.chip{padding:3px 8px;border:1px solid var(--line);border-radius:7px;background:var(--card);font-size:12px;cursor:pointer}.chip:hover{border-color:var(--accent)}
+.hint{position:absolute;right:20px;top:16px;max-width:calc(100% - 40px);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink3);font-size:12px;pointer-events:none;transition:opacity .4s}.hint.gone{opacity:0}
+aside{position:absolute;top:12px;right:12px;width:310px;max-height:calc(100% - 24px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;display:none;z-index:5}
+aside.on{display:block}aside h2{margin:0 0 2px;font-size:22px;letter-spacing:.04em}aside .meta{color:var(--ink3);font-size:12px;margin-bottom:10px}aside p{margin:8px 0;font-size:14px;line-height:1.7}
+aside .note{border-left:2px solid var(--line);padding-left:10px;color:var(--ink2);font-size:13px}aside h3{font-size:12px;color:var(--ink3);margin:14px 0 6px;font-weight:500;letter-spacing:.1em}
+aside ul{list-style:none;margin:0;padding:0}aside li{padding:5px 0;border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;gap:10px;font-size:13px}aside li a{color:var(--ink);cursor:pointer;font-weight:600}aside li a:hover{color:var(--accent)}aside li span{color:var(--ink3);text-align:right}
+.x{position:absolute;top:4px;right:4px;width:40px;height:40px;border:0;border-radius:10px;background:none;font-size:20px;color:var(--ink3)}
+.legend{position:absolute;left:12px;bottom:12px;z-index:5}.lgbtn{display:flex;align-items:center;gap:6px;min-width:76px;height:44px;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:7px 10px;color:var(--ink2);box-shadow:0 1px 3px rgba(31,47,63,.06)}
+.lgbtn:hover,.lgbtn[aria-expanded=true]{border-color:var(--accent)}
+.lgbtn .sw{width:9px;height:9px;border-radius:50%}.lgbtn i{font-style:normal;font-size:10px;color:var(--ink3);transition:transform .16s}.lgbtn[aria-expanded=true] i{transform:rotate(180deg)}
+.lgdetail{position:absolute;left:0;bottom:52px;width:284px;max-width:calc(100vw - 24px);border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--panel);box-shadow:var(--shadow);font-size:13px;color:var(--ink2);line-height:1.5}
+.lgrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}.lgrow span{display:flex;align-items:center;gap:7px}.lgrow b{display:block;width:14px;height:10px;border-radius:3px;flex:none}
+.lggrid{display:grid;grid-template-columns:72px 72px 1fr;gap:14px 4px}.lggrid span{display:flex;align-items:center;gap:7px;white-space:nowrap}.lg-relations,.lg-states{margin-top:12px}.lg-deceased{grid-column:1 / -1}
+.lgic{width:36px;height:18px;flex:none;cursor:default;touch-action:auto}.lgic .ln{stroke:var(--ln);stroke-width:1.4;stroke-linecap:round}.lgic .rg{fill:var(--panel);stroke:var(--ink3);stroke-width:1.3}.lgic .dsh{stroke:var(--rel);stroke-width:1.4;stroke-dasharray:3 2.5;stroke-linecap:round}.lgic .dt{fill:var(--rel)}.lgic .mc{stroke:var(--line);stroke-width:1}.lgic .mc.male{fill:var(--card-m);stroke:none}.lgic .mc.female{stroke:none}.lgic .mc.plain{fill:var(--card)}.lgic .mc.female{fill:var(--card-f)}.lgic .mb{fill:var(--c-jia1)}.lgic .gdead{opacity:.5}.lgn{font-size:10px;fill:var(--ink);font-weight:600}.lgn.dead{fill:var(--ink3)}.lgic .tiel{stroke:var(--tie);stroke-width:2;stroke-dasharray:.1 5;stroke-linecap:round}.lgic .tied{fill:var(--tie)}
+.tools{position:absolute;right:12px;bottom:12px;display:flex;gap:6px;z-index:5}.btn{width:40px;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-size:18px;color:var(--ink2)}.btn:hover{border-color:var(--accent)}
+@media(max-width:1080px){
+  header.mast{padding-left:20px;padding-right:20px;gap:20px}.brand{padding-right:16px}.reading-bar{gap:12px}.chapter-line{gap:10px}
+}
+@media(max-width:720px){
+  header.mast{padding:6px 12px 4px;gap:10px;min-height:0;grid-template-columns:auto minmax(0,1fr);align-items:start}
+  .brand{height:44px;padding-right:10px;gap:6px}.plaque{width:30px;height:44px;padding:2px 5px}.pt{font-size:13px}.brand .sub{display:none}
+  .reading-bar{grid-template-columns:auto minmax(0,1fr) 44px 44px;grid-template-areas:"chapter . search palette" "title title title title";gap:0 2px;align-items:center}
+  .chapter-line{display:contents}
+  .chapctl{grid-area:chapter;gap:0}.chapctl #prev,.chapctl #next{width:40px}.chapctl #cbtn{padding:0 6px;font-size:14px;gap:5px}
+  .htitle{grid-area:title;font-size:12px;line-height:1.5;padding:0 2px 2px;margin-top:-2px}
+  .search{grid-area:search;justify-self:end}.search.open{position:absolute;left:12px;right:12px;top:6px;width:auto;z-index:20}
+  .palette-btn{grid-area:palette;padding:0 7px}.palette-preview i{height:16px}
+  .search input{font-size:16px;padding-left:32px;padding-right:30px}.search>svg{left:10px}
+  .chapter-list{grid-template-columns:repeat(6,minmax(0,1fr))}
+  aside{top:auto;bottom:0;left:0;right:0;width:auto;max-height:46%;border-radius:16px 16px 0 0}
+  .hint{display:none}
+  #panel.on ~ .legend,#panel.on ~ .tools{display:none}   /* 详情面板升起时，图例按钮和缩放按钮先收起，免得压在面板上 */
+}
+@media(max-width:379px){.chapctl #cbtn{font-size:13px;padding:0 5px}.chapctl #prev,.chapctl #next{width:36px}.chapter-list{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-height:520px) and (orientation:landscape){          /* 手机横屏：页眉压矮，把竖向空间让给图 */
+  header.mast{min-height:0;padding-top:4px;padding-bottom:4px;gap:14px}
+  .brand{height:44px}.plaque{width:30px;height:44px;padding:2px 5px}.pt{font-size:13px}.brand .sub{display:none}
+  .chapctl button,.palette-btn,.search input,#qclear{height:40px}.palette-btn{min-height:40px}
+  .hint{top:8px;right:8px;font-size:11px;padding:4px 10px}
+  aside{max-height:calc(100% - 16px);top:8px;bottom:8px}
+  #panel.on ~ .tools{right:352px}   /* 侧边详情面板升起时，缩放按钮挪到它的左边 */
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* 外姓人物：更小的圆角卡片 + 整圈描边（颜色取"其他"） */
+.node.out .card{stroke:none}
+.node.out .ring{stroke-linejoin:round}
+.node.out .ring{rx:21}
+.node.out.dead .card{stroke:var(--line)}
+
+
+/* 外姓人物卡片：卷角 */
+.node.out .curl{fill:var(--c-other);opacity:.9}
+.node.out .curlhi{fill:none;stroke:#fff;stroke-width:1;opacity:.55}
+.node.out.dead .curl{opacity:.4}
+.node .plumbr{fill:none;stroke:var(--tie);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.node .plumfl{fill:var(--plum,#b23a4f);stroke:var(--plum-ln,none);stroke-width:.5}.node .plumct{fill:#f2cf72}
+
+.tl.pr.mar{stroke:var(--ink2);stroke-width:1.5;fill:none}
+</style>
+</head>
+<body>
+<div id="app">
+<header class="mast">
+  <h1 class="brand"><span class="plaque"><span class="pt">红楼梦</span></span></h1>
+  <div class="reading-bar">
+    <div class="chapter-line">
+  <div class="chapctl" role="group" aria-label="章回">
+    <button id="prev" aria-label="上一回"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
+    <button id="cbtn" aria-haspopup="dialog" aria-controls="cgrid" aria-expanded="false"><span id="cn">第 1 回</span><svg class="car" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg></button>
+    <button id="next" aria-label="下一回"><svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5"/></svg></button>
+  </div>
+  <span id="ct" class="htitle" aria-live="polite"></span>
+    </div>
+  <div class="search"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg><input id="q" placeholder="搜人名" autocomplete="off" spellcheck="false" aria-label="搜人名" role="combobox" aria-autocomplete="list" aria-controls="sug" aria-expanded="false"><button id="qclear" aria-label="清空搜索" hidden>×</button><div id="sug" role="listbox" aria-label="人物搜索结果"></div><span id="search-status" class="sr-only" role="status"></span></div>
+<button id="palette-btn" class="palette-btn" aria-label="选择配色" aria-haspopup="dialog" aria-controls="palette-menu" aria-expanded="false"><span class="palette-preview" aria-hidden="true"><i></i><i></i><i></i></span></button>
+  </div>
+</header>
+<main>
+  <svg id="svg" role="img" aria-label="人物关系图"><defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5 9 5 1 8.5z" class="arwp"/></marker></defs><g id="vp"><g id="gH"></g><g id="gE"></g><g id="gL"></g><g id="gN"></g><g id="gT"></g><g id="gS"></g></g></svg>
+  <div class="hint">拖动平移　·　双指捏合缩放</div>
+  <aside id="panel"><button class="x" id="px" aria-label="关闭">×</button><div id="pbody"></div></aside>
+  <div class="legend" id="legend"></div>
+  <div class="tools"><button class="btn" id="zout" aria-label="缩小">－</button><button class="btn" id="zin" aria-label="放大">＋</button></div>
+</main>
+</div>
+<div id="cgrid" class="popover" role="dialog" aria-label="选择回目" hidden></div>
+<div id="palette-menu" class="popover" role="dialog" aria-label="选择配色" hidden></div>
+<script>
+const DATA = {"nodes": [{"id": "zhenshiyin", "name": "甄士隐", "house": "甄", "g": "m", "x": 6.8, "y": 0.0, "first": 1, "death": null, "desc": "姑苏乡宦，为人清淡。", "alt": [], "notes": [{"from": 1, "text": "女儿英莲元宵夜被人拐走，家宅又遭火灾，他随跛足道人出家。"}], "aliases": ["甄士隐", "甄费"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "zhenbaoyu", "name": "甄宝玉", "house": "甄", "g": "m", "x": -0.9, "y": 1.0, "first": 57, "death": null, "desc": "江南甄家的公子，据说与贾宝玉容貌脾性相仿。", "alt": [], "notes": [{"from": 115, "text": "与贾宝玉相见，宝玉觉得他不过是个追名逐利的人。"}], "aliases": ["甄宝玉"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "jiayucun", "name": "贾雨村", "house": "官", "g": "m", "x": 8.4, "y": 0.0, "first": 1, "death": null, "desc": "湖州人，落魄书生。", "alt": [], "notes": [{"from": 2, "text": "此时已被革职，到扬州在林如海家教黛玉读书。"}, {"from": 3, "text": "因黛玉之父相荐，得复官职，任应天府知府。"}, {"from": 53, "text": "补授大司马，协理军机。"}, {"from": 103, "text": "升任京兆府尹。"}, {"from": 120, "text": "因贪索获罪，遇赦褫籍为民。"}], "aliases": ["贾雨村", "贾化", "雨村"], "kind": "card", "tag": "", "tagAlt": [{"from": 2, "text": ""}, {"from": 3, "text": "应天府知府"}, {"from": 53, "text": "大司马"}, {"from": 103, "text": "京兆府尹"}, {"from": 120, "text": ""}]}, {"id": "lengzixing", "name": "冷子兴", "house": "官", "g": "m", "x": 10.0, "y": 0.0, "first": 2, "death": null, "desc": "古董商。", "alt": [], "notes": [{"from": 2, "text": "向贾雨村演说荣国府的来历和人物。"}], "aliases": ["冷子兴"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "linruhai", "name": "林如海", "house": "林", "g": "m", "x": 0.0, "y": 1.0, "first": 2, "death": 14, "desc": "列侯之后，探花出身，任巡盐御史。", "alt": [], "notes": [{"from": 14, "text": "在扬州病逝。"}], "aliases": ["林如海"], "kind": "card", "tag": "", "tagAlt": [{"from": 2, "text": "巡盐御史"}]}, {"id": "jiamin", "name": "贾敏", "house": "荣", "g": "f", "x": 1.1, "y": 1.0, "first": 2, "death": 2, "desc": "贾赦、贾政的妹妹，在黛玉入荣府之前已去世。", "alt": [], "notes": [], "aliases": ["贾敏"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "daiyu", "name": "林黛玉", "house": "林", "g": "f", "x": 1.1, "y": 2.0, "first": 2, "death": 98, "desc": "母亲去世后寄居荣国府，自幼多病。", "alt": [], "notes": [{"from": 3, "text": "初到荣国府，与宝玉一见如旧相识。"}, {"from": 97, "text": "焚毁诗稿，断了痴情；这一晚宝玉与宝钗成婚。"}, {"from": 98, "text": "病逝于潇湘馆。"}], "aliases": ["黛玉", "林黛玉", "颦儿"], "home": {"from": 23, "name": "潇湘馆"}, "kind": "card", "tag": "", "tagAlt": []}, {"id": "jiamu", "name": "贾母", "house": "荣", "g": "f", "x": 4.7, "y": 0.0, "first": 2, "death": 110, "desc": "荣国府最高的长辈，娘家是金陵史侯家，书中常称「老太太」，也叫「老祖宗」，第 2 回里冷子兴称她「史老太君」。", "alt": [], "notes": [{"from": 110, "text": "在贾府败落后病逝。"}], "aliases": ["贾母", "老太太", "老祖宗", "史老太君"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "yuanyang", "name": "鸳鸯", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 20, "death": 111, "desc": "大丫鬟，办事周全，深得主子信任。", "alt": [], "notes": [{"from": 46, "text": "邢夫人要替贾赦讨她作妾，她当众誓死不从。"}, {"from": 111, "text": "贾母去世后，她自缢殉主。"}], "aliases": ["鸳鸯"], "kind": "pill", "attach": {"to": "jiamu", "side": "above", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "jiashe", "name": "贾赦", "house": "荣", "g": "m", "x": 3.6, "y": 1.0, "first": 2, "death": null, "desc": "长子，承袭一等将军，住荣府东院。", "alt": [], "notes": [{"from": 105, "text": "因交通外官、依势凌弱，被革去世职。"}, {"from": 107, "text": "发往台站效力。"}], "aliases": ["贾赦"], "kind": "card", "tag": "", "tagAlt": [{"from": 3, "text": "一等将军"}, {"from": 105, "text": ""}]}, {"id": "xingfuren", "name": "邢夫人", "house": "荣", "g": "f", "x": 4.7, "y": 1.0, "first": 3, "death": null, "desc": "", "alt": [], "notes": [], "aliases": ["邢夫人"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "jiazheng", "name": "贾政", "house": "荣", "g": "m", "x": 9.3, "y": 1.0, "first": 2, "death": null, "desc": "次子，工部员外郎，为人端方正直，不喜多事。", "alt": [], "notes": [{"from": 33, "text": "因宝玉结交琪官、又听了贾环的谗言，把宝玉痛打一顿。"}, {"from": 96, "text": "外放江西粮道，后被参失察，降三级调回工部。"}, {"from": 110, "text": "贾母去世，报了丁忧。"}, {"from": 119, "text": "旨意：仍袭荣国世职，服满后仍升工部郎中。"}], "aliases": ["贾政"], "kind": "card", "tag": "", "tagAlt": [{"from": 2, "text": "工部员外郎"}, {"from": 85, "text": "工部郎中"}, {"from": 96, "text": "江西粮道"}, {"from": 102, "text": "工部员外郎"}, {"from": 110, "text": ""}, {"from": 119, "text": "荣国世职"}]}, {"id": "wangfuren", "name": "王夫人", "house": "荣", "g": "f", "x": 10.4, "y": 1.0, "first": 3, "death": null, "desc": "吃斋念佛，管着荣府内宅。", "alt": [], "notes": [{"from": 32, "text": "金钏被她撵出后投井自尽。"}, {"from": 74, "text": "听信谗言，下令抄检大观园；随后撵走晴雯等人。"}], "aliases": ["王夫人"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "zhaoyiniang", "name": "赵姨娘", "house": "荣", "g": "f", "x": 8.2, "y": 1.0, "first": 20, "death": 113, "desc": "", "alt": [], "notes": [{"from": 25, "text": "买通马道婆，用魇魔法暗害宝玉和凤姐。"}, {"from": 113, "text": "病中似见冤魂索命，死去。"}], "aliases": ["赵姨娘"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "wangziteng", "name": "王子腾", "house": "王", "g": "m", "x": 9.9, "y": 3.6, "first": 3, "death": 96, "desc": "王家的权势人物。", "alt": [], "notes": [{"from": 4, "text": "这一回里升了九省统制，奉旨出都查边。"}, {"from": 96, "text": "赶路染病，在十里屯误服药物，当即身亡。"}], "aliases": ["王子腾"], "kind": "card", "tag": "", "tagAlt": [{"from": 4, "text": "京营节度使"}, {"from": 5, "text": "九省统制"}, {"from": 53, "text": "九省都检点"}, {"from": 95, "text": "内阁大学士"}]}, {"id": "jialian", "name": "贾琏", "house": "荣", "g": "m", "x": 3.6, "y": 2.0, "first": 2, "death": null, "desc": "在荣府帮着料理家务。", "alt": [], "notes": [{"from": 65, "text": "瞒着凤姐偷娶尤二姐为二房。"}, {"from": 106, "text": "被革去职衔，免罪释放。"}], "aliases": ["贾琏", "琏二爷"], "kind": "card", "tag": "", "tagAlt": [{"from": 2, "text": "同知"}, {"from": 106, "text": ""}]}, {"id": "fengjie", "name": "王熙凤", "house": "荣", "g": "f", "x": 4.7, "y": 2.0, "first": 3, "death": 114, "desc": "精明能干，泼辣厉害。", "alt": [], "notes": [{"from": 13, "text": "受托协理宁国府丧事。"}, {"from": 69, "text": "设计逼得尤二姐吞金自尽。"}, {"from": 114, "text": "病逝。"}], "aliases": ["王熙凤", "凤姐", "熙凤", "琏二奶奶"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "yingchun", "name": "贾迎春", "house": "荣", "g": "f", "x": 2.5, "y": 2.0, "first": 2, "death": null, "desc": "贾琏的妹妹，性格懦弱，人称「二木头」。", "alt": [], "notes": [{"from": 79, "text": "被父亲许给孙绍祖。"}, {"from": 80, "text": "婚后遭孙绍祖虐待，回家哭诉。"}], "aliases": ["迎春"], "home": {"from": 23, "name": "缀锦楼"}, "kind": "card", "tag": "", "tagAlt": []}, {"id": "xingxiuyan", "name": "邢岫烟", "house": "外", "g": "f", "x": 5.8, "y": 2, "first": 49, "death": null, "desc": "家境清寒，品格端庄。", "alt": [], "notes": [], "aliases": ["邢岫烟", "岫烟"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "pinger", "name": "平儿", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 6, "death": null, "desc": "心腹大丫鬟，兼作通房（第 6 回：「凤姐的一个心腹通房大丫头」）。", "alt": [], "notes": [{"from": 6, "text": "原文没有写她哪一回被收房。"}, {"from": 44, "text": "有人对贾琏说「你倒是把平儿扶了正」。"}, {"from": 119, "text": "贾琏感激她，打算等贾赦回来扶她为正。"}], "aliases": ["平儿"], "kind": "pill", "attach": {"to": "fengjie", "side": "below", "dx": -0.625, "dy": 14, "per": 1}, "tag": "", "tagAlt": []}, {"id": "qiaojie", "name": "巧姐", "house": "荣", "g": "f", "x": 4.7, "y": 3.3, "first": 6, "death": null, "desc": "", "alt": [], "notes": [{"from": 113, "text": "凤姐临终前把她托付给刘姥姥。"}, {"from": 119, "text": "险些被舅舅王仁、贾环等人卖给外藩，刘姥姥设法救出。"}], "aliases": ["巧姐", "大姐儿"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "jiazhu", "name": "贾珠", "house": "荣", "g": "m", "x": 10.4, "y": 2.0, "first": 2, "death": 2, "desc": "长子，年轻时即已去世。", "alt": [], "notes": [], "aliases": ["贾珠"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "yuanchun", "name": "贾元春", "house": "荣", "g": "f", "x": 12.1, "y": 2.0, "first": 2, "death": 95, "desc": "长女，入宫作女史。", "alt": [], "notes": [{"from": 16, "text": "被封为贤德妃。"}, {"from": 18, "text": "回家省亲，大观园因此落成。"}, {"from": 95, "text": "病逝于宫中。"}], "aliases": ["元春", "贾元春", "元妃"], "kind": "card", "tag": "", "tagAlt": [{"from": 2, "text": "女史"}, {"from": 16, "text": "贤德妃"}]}, {"id": "baoyu", "name": "贾宝玉", "house": "荣", "g": "m", "x": 13.2, "y": 2.0, "first": 2, "death": null, "desc": "衔玉而生，最得贾母疼爱。", "alt": [], "notes": [{"from": 5, "text": "梦游太虚幻境，看到金陵十二钗的判词。"}, {"from": 97, "text": "在被瞒着的情况下娶了宝钗。"}, {"from": 119, "text": "考中举人后离家出走。"}, {"from": 120, "text": "在雪地里拜别父亲，随一僧一道而去。"}], "aliases": ["宝玉", "贾宝玉", "宝二爷"], "home": {"from": 23, "name": "怡红院"}, "kind": "card", "tag": "", "tagAlt": []}, {"id": "tanchun", "name": "贾探春", "house": "荣", "g": "f", "x": 7.1, "y": 2.0, "first": 2, "death": null, "desc": "庶出，精明干练，有大志向。", "alt": [], "notes": [{"from": 55, "text": "凤姐病倒，她与李纨暂代王夫人理家。"}], "aliases": ["探春"], "home": {"from": 23, "name": "秋爽斋"}, "kind": "card", "tag": "", "tagAlt": [], "posT": [{"from": 1, "x": 8.2, "y": 2.0}, {"from": 18, "x": 7.1, "y": 2.0}]}, {"id": "jiahuan", "name": "贾环", "house": "荣", "g": "m", "x": 8.2, "y": 2.0, "first": 18, "death": null, "desc": "宝玉的异母弟。", "alt": [], "notes": [{"from": 33, "text": "向贾政进谗言，说宝玉逼奸金钏。"}], "aliases": ["贾环"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "zhouruijia", "name": "周瑞家的", "house": "外", "g": "f", "x": 0, "y": 0, "first": 6, "death": null, "desc": "陪房；她的女儿嫁给了冷子兴，书中没写名字。", "alt": [], "notes": [{"from": 88, "text": "另有干儿子何三，是个无赖。"}], "aliases": ["周瑞家的", "周瑞"], "kind": "pill", "attach": {"to": "wangfuren", "side": "above", "dx": 0.12, "per": 2}, "tag": "", "tagAlt": []}, {"id": "lihuan", "name": "李纨", "house": "荣", "g": "f", "x": 9.3, "y": 2.0, "first": 4, "death": null, "desc": "寡居守节，一心抚养儿子。", "alt": [], "notes": [], "aliases": ["李纨"], "home": {"from": 23, "name": "稻香村"}, "kind": "card", "tag": "", "tagAlt": []}, {"id": "jialan", "name": "贾兰", "house": "荣", "g": "m", "x": 9.3, "y": 3.0, "first": 4, "death": null, "desc": "年纪虽小，上进好学。", "alt": [], "notes": [{"from": 119, "text": "考中举人。"}], "aliases": ["贾兰"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "xiren", "name": "袭人", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 3, "death": null, "desc": "原是贾母房里的丫鬟，后来服侍宝玉，温柔细心。", "alt": [], "notes": [{"from": 6, "text": "与宝玉初试云雨，此后在宝玉身边的地位渐重。"}, {"from": 120, "text": "后来嫁给蒋玉菡。"}], "aliases": ["袭人"], "kind": "pill", "attach": {"to": "baoyu", "side": "below", "dx": 0, "per": 2}, "tag": "", "tagAlt": []}, {"id": "qingwen", "name": "晴雯", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 5, "death": 77, "desc": "丫鬟，生得标致，性子直爽。", "alt": [], "notes": [{"from": 52, "text": "病中为宝玉补好雀金裘。"}, {"from": 77, "text": "被王夫人撵出大观园，含冤病死。"}], "aliases": ["晴雯"], "kind": "pill", "attach": {"to": "baoyu", "side": "below", "dx": 0, "per": 2}, "tag": "", "tagAlt": []}, {"id": "sheyue", "name": "麝月", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 5, "death": null, "desc": "丫鬟，稳重本分。", "alt": [], "notes": [], "aliases": ["麝月"], "kind": "pill", "attach": {"to": "baoyu", "side": "below", "dx": 0, "per": 2}, "tag": "", "tagAlt": []}, {"id": "qiuwen", "name": "秋纹", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 19, "death": null, "desc": "丫鬟。", "alt": [], "notes": [], "aliases": ["秋纹"], "kind": "pill", "attach": {"to": "baoyu", "side": "below", "dx": 0, "per": 2}, "tag": "", "tagAlt": []}, {"id": "limama", "name": "李嬷嬷", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 3, "death": null, "desc": "乳母，倚老卖老。", "alt": [], "notes": [], "aliases": ["李嬷嬷", "李奶娘"], "kind": "pill", "attach": {"to": "baoyu", "side": "below", "dx": 0, "per": 2}, "tag": "", "tagAlt": []}, {"id": "mingyan", "name": "茗烟", "house": "荣", "g": "m", "x": 0, "y": 0, "first": 9, "death": null, "desc": "小厮，机灵。", "alt": [], "notes": [], "aliases": ["茗烟"], "kind": "pill", "attach": {"to": "baoyu", "side": "below", "dx": 0, "per": 2}, "tag": "", "tagAlt": []}, {"id": "zijuan", "name": "紫鹃", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 8, "death": null, "desc": "原是贾母的丫鬟，后来服侍黛玉，真心待她。", "alt": [], "notes": [{"from": 57, "text": "借一句玩话试探宝玉，宝玉信以为真，当场痴病发作。"}], "aliases": ["紫鹃"], "kind": "pill", "attach": {"to": "daiyu", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "xueyan", "name": "雪雁", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 3, "death": null, "desc": "黛玉从家乡带来的丫鬟。", "alt": [], "notes": [], "aliases": ["雪雁"], "kind": "pill", "attach": {"to": "daiyu", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "jiajing", "name": "贾敬", "house": "宁", "g": "m", "x": 15.35, "y": 1.0, "first": 2, "death": 63, "desc": "一心修道，不问家事。", "alt": [], "notes": [{"from": 63, "text": "服丹砂中毒而死。"}], "aliases": ["贾敬"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "jiazhen", "name": "贾珍", "house": "宁", "g": "m", "x": 15.9, "y": 2.0, "first": 2, "death": null, "desc": "宁国府的族长，爱热闹。", "alt": [], "notes": [{"from": 13, "text": "为儿媳秦可卿大办丧事。"}, {"from": 105, "text": "宁国府被查抄。"}, {"from": 107, "text": "革去世职，发往海疆效力。"}, {"from": 119, "text": "罪名免去，仍袭宁国三等世职。"}], "aliases": ["贾珍"], "kind": "card", "tag": "", "tagAlt": [{"from": 13, "text": "三品威烈将军"}, {"from": 107, "text": ""}, {"from": 119, "text": "三等世职"}]}, {"id": "youshi", "name": "尤氏", "house": "宁", "g": "f", "x": 17.0, "y": 2.0, "first": 5, "death": null, "desc": "为人和善，不大管事。", "alt": [], "notes": [], "aliases": ["尤氏"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "xichun", "name": "贾惜春", "house": "宁", "g": "f", "x": 14.8, "y": 2.0, "first": 2, "death": null, "desc": "自幼养在荣府，性子孤僻。", "alt": [], "notes": [{"from": 74, "text": "抄检大观园时，为保全自己，把入画撵走。"}], "aliases": ["惜春"], "home": {"from": 23, "name": "蓼风轩"}, "kind": "card", "tag": "", "tagAlt": []}, {"id": "jiarong", "name": "贾蓉", "house": "宁", "g": "m", "x": 17.0, "y": 3.0, "first": 2, "death": null, "desc": "生得清秀。", "alt": [], "notes": [], "aliases": ["贾蓉"], "kind": "card", "tag": "", "tagAlt": [{"from": 13, "text": "龙禁尉"}]}, {"id": "qinkeqing", "name": "秦可卿", "house": "宁", "g": "f", "x": 18.1, "y": 3.0, "first": 5, "death": 13, "desc": "生得袅娜纤巧，行事温柔平和。", "alt": [], "notes": [{"from": 8, "text": "是秦业从养生堂抱养的女儿；弟弟秦钟是秦业年过五旬才得的亲生儿子。"}, {"from": 13, "text": "病逝，丧事极尽铺张。"}], "aliases": ["秦可卿", "可卿", "秦氏"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "qinzhong", "name": "秦钟", "house": "宁", "g": "m", "x": 19.7, "y": 3.0, "first": 7, "death": 16, "desc": "模样俊俏。", "alt": [], "notes": [{"from": 9, "text": "与宝玉同入家塾，闹了一场学堂。"}, {"from": 16, "text": "病死。"}], "aliases": ["秦钟", "秦鲸卿"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "youlaoniang", "name": "尤老娘", "house": "宁", "g": "f", "x": 18.1, "y": 1.0, "first": 64, "death": null, "desc": "", "alt": [], "notes": [], "aliases": ["尤老娘"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "youerjie", "name": "尤二姐", "house": "宁", "g": "f", "x": 18.1, "y": 2.0, "first": 63, "death": 69, "desc": "性情温顺。", "alt": [], "notes": [{"from": 69, "text": "被凤姐折磨，吞金自尽。"}], "aliases": ["尤二姐"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "yousanjie", "name": "尤三姐", "house": "宁", "g": "f", "x": 19.2, "y": 2.0, "first": 63, "death": 66, "desc": "生得标致，性子刚烈。", "alt": [], "notes": [{"from": 66, "text": "因柳湘莲退婚，在他面前自刎。"}], "aliases": ["尤三姐"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "jiarui", "name": "贾瑞", "house": "宁", "g": "m", "x": 0, "y": 0, "first": 9, "death": 12, "desc": "在家塾中读书，品行不端。", "alt": [], "notes": [{"from": 12, "text": "迷恋凤姐，被凤姐设局捉弄，病重而死。"}], "aliases": ["贾瑞", "贾天祥"], "kind": "pill", "attach": {"to": "jiarong", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "jiaqiang", "name": "贾蔷", "house": "宁", "g": "m", "x": 16.0, "y": 3.0, "first": 9, "death": null, "desc": "宁国公的玄孙，父母早亡，原文没有写父母的名字；从小跟着贾珍过活（第 9 回）。", "alt": [], "notes": [], "aliases": ["贾蔷"], "kind": "card", "attach": null, "tag": "", "tagAlt": [], "curl": true}, {"id": "jiayun", "name": "贾芸", "house": "宁", "g": "m", "x": 0, "y": 0, "first": 24, "death": null, "desc": "贾家的族人，住在荣府的后廊上，家境贫寒，伶俐乖觉；父亲早亡，母亲是「五嫂子」，舅舅是卜世仁；曾笑说愿认宝玉作父亲（第 24 回）。", "alt": [], "notes": [], "aliases": ["贾芸"], "kind": "pill", "attach": {"to": "jiarong", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "jiaoda", "name": "焦大", "house": "宁", "g": "m", "x": 0, "y": 0, "first": 7, "death": null, "desc": "宁府的老仆，从小跟着先辈出过兵。", "alt": [], "notes": [{"from": 7, "text": "第 7 回喝醉了骂人，尤氏解释他的来历：「从小儿跟着太爷们出过三四回兵，从死人堆里把太爷背了出来，得了命，自己挨着饿，却偷了东西来给主子吃，两日没得水，得了碗水给主子喝，他自己喝马溺。」原文只写「太爷们」，没有说具体是哪一位。"}], "aliases": ["焦大"], "kind": "pill", "attach": {"to": "jiarong", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "xueyima", "name": "薛姨妈", "house": "薛", "g": "f", "x": 11.4, "y": 3.6, "first": 4, "death": null, "desc": "", "alt": [], "notes": [], "aliases": ["薛姨妈", "薛姨娘"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "baochai", "name": "薛宝钗", "house": "薛", "g": "f", "x": 13.2, "y": 4.9, "first": 4, "death": null, "desc": "端庄持重，博学。", "alt": [], "notes": [{"from": 8, "text": "随身戴一把金锁，上面有字，与宝玉的玉相对，人称「金玉」之说。"}, {"from": 97, "text": "与宝玉成婚。"}], "aliases": ["宝钗", "薛宝钗"], "home": {"from": 23, "name": "蘅芜苑"}, "kind": "card", "tag": "", "tagAlt": []}, {"id": "xuepan", "name": "薛蟠", "house": "薛", "g": "m", "x": 11.2, "y": 4.9, "first": 3, "death": null, "desc": "骄纵任性，人称「呆霸王」。", "alt": [], "notes": [{"from": 4, "text": "为抢买英莲，打死了冯渊。"}, {"from": 86, "text": "在外打死人，被关入监牢。"}], "aliases": ["薛蟠"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "xiajingui", "name": "夏金桂", "house": "薛", "g": "f", "x": 10.0, "y": 4.9, "first": 79, "death": 103, "desc": "出身富户，性情泼辣。", "alt": [], "notes": [{"from": 103, "text": "想毒死香菱，反而误服毒药身亡。"}], "aliases": ["夏金桂"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "xiangling", "name": "香菱", "house": "薛", "g": "f", "x": 11.2, "y": 5.9, "first": 1, "death": null, "desc": "原名英莲，三岁时被人拐走。", "alt": [{"from": 1, "name": "英莲"}, {"from": 7, "name": "香菱"}], "notes": [{"from": 4, "text": "被卖给薛蟠；薛蟠为抢她打死了冯渊，她随薛家进京，后来改名香菱。"}, {"from": 48, "text": "拜黛玉为师学作诗。"}, {"from": 103, "text": "夏金桂死后被扶为正室。"}], "aliases": ["香菱", "英莲"], "kind": "card", "tag": "", "tagAlt": [], "posT": [{"from": 1, "x": 6.8, "y": 1.0}, {"from": 4, "x": 11.2, "y": 5.9}]}, {"id": "yinger", "name": "莺儿", "house": "薛", "g": "f", "x": 0, "y": 0, "first": 7, "death": null, "desc": "手巧，会编织。", "alt": [], "notes": [], "aliases": ["莺儿"], "kind": "pill", "attach": {"to": "baochai", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "xuekui", "name": "薛蝌", "house": "薛", "g": "m", "x": 14.4, "y": 5.7, "first": 49, "death": null, "desc": "为人厚道。", "alt": [], "notes": [], "aliases": ["薛蝌"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "xuebaoqin", "name": "薛宝琴", "house": "薛", "g": "f", "x": 15.9, "y": 5.7, "first": 49, "death": null, "desc": "美貌聪慧，见识广博。", "alt": [], "notes": [], "aliases": ["宝琴", "薛宝琴"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "xiangyun", "name": "史湘云", "house": "史", "g": "f", "x": 2.2, "y": 0.0, "first": 20, "death": null, "desc": "史家的姑娘，祖父是贾母的兄弟，说话爽朗直率；保龄侯史鼐外放时，贾母舍不得她，把她留在身边。", "alt": [], "notes": [], "aliases": ["湘云", "史湘云"], "home": {"from": 49, "name": "蘅芜苑"}, "kind": "card", "tag": "", "tagAlt": []}, {"id": "liulaolao", "name": "刘姥姥", "house": "外", "g": "f", "x": 12.0, "y": -0.55, "first": 6, "death": null, "desc": "乡下的老妇人，家境贫寒。", "alt": [], "notes": [{"from": 39, "text": "二进荣国府，在大观园里逗得贾母与众人大笑。"}, {"from": 113, "text": "凤姐临终前把巧姐托付给她。"}], "aliases": ["刘姥姥"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "banr", "name": "板儿", "house": "外", "g": "m", "x": 11.45, "y": 1.05, "first": 6, "death": null, "desc": "", "alt": [], "notes": [], "aliases": ["板儿"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "miaoyu", "name": "妙玉", "house": "外", "g": "f", "x": 6.9, "y": 3.0, "first": 41, "death": null, "desc": "带发修行的尼姑，苏州人氏，十八岁，文墨极通。", "alt": [], "notes": [{"from": 41, "text": "第 18 回里已被提起：王夫人想把她接进园来，她说「侯门公府必以贵势压人，我再不去」，最后只写了「下个帖子请」，书中没写她何时进的园；到这一回，她已住在栊翠庵。"}, {"from": 63, "text": "托人给宝玉送来贺帖，落款「槛外人」。"}, {"from": 112, "text": "被强盗劫走，下落不明。"}], "aliases": ["妙玉"], "home": {"from": 41, "name": "栊翠庵"}, "kind": "card", "tag": "", "tagAlt": [], "shape": "plum"}, {"id": "beijingwang", "name": "北静王", "house": "官", "g": "m", "x": 15.0, "y": 3.1, "first": 14, "death": null, "desc": "北静郡王水溶，年轻有为，不拘俗礼；第 14 回在路祭秦可卿时与宝玉相见。", "alt": [], "notes": [], "aliases": ["北静王", "水溶"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "jiangyuhan", "name": "蒋玉菡", "house": "外", "g": "m", "x": 15.0, "y": 3.95, "first": 28, "death": null, "desc": "忠顺王府里的戏子，艺名琪官。", "alt": [], "notes": [{"from": 28, "text": "与宝玉互赠汗巾，结为知己；他身上那条汗巾，是北静王前一天送的。"}], "aliases": ["蒋玉菡", "琪官"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "liuxianglian", "name": "柳湘莲", "house": "外", "g": "m", "x": 15.0, "y": 4.8, "first": 47, "death": null, "desc": "世家子弟，性情豪爽，爱串戏，喜欢舞枪弄棒。", "alt": [], "notes": [{"from": 47, "text": "痛打了薛蟠；常去秦钟坟上照看，是秦钟的旧友。"}, {"from": 66, "text": "尤三姐自刎后，他随道士出家。"}], "aliases": ["柳湘莲"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "jinchuan", "name": "金钏", "house": "外", "g": "f", "x": 0, "y": 0, "first": 7, "death": 32, "desc": "丫鬟。", "alt": [], "notes": [], "aliases": ["金钏"], "kind": "pill", "attach": {"to": "wangfuren", "side": "above", "dx": 0.12, "per": 2}, "tag": "", "tagAlt": []}, {"id": "yuchuan", "name": "玉钏", "house": "外", "g": "f", "x": 0, "y": 0, "first": 25, "death": null, "desc": "丫鬟。", "alt": [], "notes": [], "aliases": ["玉钏"], "kind": "pill", "attach": {"to": "wangfuren", "side": "above", "dx": 0.12, "per": 2}, "tag": "", "tagAlt": []}, {"id": "linzhixiao", "name": "林之孝", "house": "外", "g": "m", "x": 0, "y": 0, "first": 27, "death": null, "desc": "荣府管事的仆人。", "alt": [], "notes": [], "aliases": ["林之孝"], "kind": "pill", "attach": {"to": "xiaohong", "side": "below", "dx": 0, "per": 1}, "tag": "", "tagAlt": []}, {"id": "xiaohong", "name": "小红", "house": "外", "g": "f", "x": 0, "y": 0, "first": 24, "death": null, "desc": "本姓林，小名红玉，在怡红院当差。", "alt": [{"from": 24, "name": "红玉"}, {"from": 29, "name": "小红"}], "notes": [{"from": 27, "text": "被凤姐看中，调到凤姐处当差。"}], "aliases": ["小红", "红玉"], "kind": "pill", "attach": null, "attachT": [{"from": 0, "to": "baoyu", "side": "below", "per": 2}, {"from": 27, "to": "fengjie", "side": "below", "per": 3, "dx": 0.36}], "tag": "", "tagAlt": []}, {"id": "siqi", "name": "司棋", "house": "外", "g": "f", "x": 0, "y": 0, "first": 7, "death": null, "desc": "丫鬟，邢夫人陪房王善保家的的外孙女。", "alt": [], "notes": [{"from": 74, "text": "抄检时被查出与表弟潘又安私相授受，被撵出。"}], "aliases": ["司棋"], "kind": "pill", "attach": {"to": "yingchun", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "jiadaishan", "name": "贾代善", "house": "荣", "g": "m", "x": 5.8, "y": 0.0, "first": 2, "death": 2, "desc": "袭了荣公的官；早已去世。", "alt": [], "notes": [], "aliases": ["代善", "贾代善"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "unk_she", "name": "？", "house": "荣", "g": "f", "x": 2.5, "y": 1.0, "first": 2, "death": 2, "desc": "书中没写名字（第 2 回只说迎春是「赦老爹之妾所出」）。", "alt": [], "notes": [{"from": 2, "text": "原文没写她去世，这里是推断。"}], "aliases": [], "ph": true, "kind": "card", "tag": "", "tagAlt": [], "ptitle": "贾赦之妾（未写明）"}, {"id": "unk_jing", "name": "？", "house": "宁", "g": "f", "x": 14.25, "y": 1.0, "first": 2, "death": 2, "desc": "书中没写名字。", "alt": [], "notes": [{"from": 2, "text": "原文没写她去世，这里是推断。"}], "aliases": [], "ph": true, "kind": "card", "tag": "", "tagAlt": [], "ptitle": "贾敬之妻（未写明）"}, {"id": "jiadaihua", "name": "贾代化", "house": "宁", "g": "m", "x": 14.25, "y": 0.0, "first": 2, "death": 2, "desc": "袭了宁公的官，还有一个儿子贾敷。", "alt": [], "notes": [{"from": 13, "text": "原文没有明写他去世，这里是推断：第 2 回他的儿子贾敬已经袭官，第 13 回称他「原任」。"}], "aliases": ["代化", "贾代化"], "kind": "card", "tag": "", "tagAlt": [{"from": 13, "text": "一等神威将军"}]}, {"id": "unk_dai", "name": "？", "house": "宁", "g": "f", "x": 15.35, "y": 0.0, "first": 2, "death": 2, "desc": "书中没写名字。", "alt": [], "notes": [{"from": 2, "text": "原文没写她去世，这里是推断。"}], "aliases": [], "ph": true, "kind": "card", "tag": "", "tagAlt": [], "ptitle": "贾代化之妻（未写明）"}, {"id": "rongguogong", "name": "贾源", "house": "荣", "g": "m", "x": 6.3, "y": -1.0, "first": 2, "death": 2, "desc": "荣公，已去世。", "alt": [], "notes": [{"from": 3, "text": "名贾源（第 3 回荣禧堂匾额所书）。"}], "aliases": ["贾源", "荣国公"], "kind": "card", "tag": "荣国公", "tagAlt": []}, {"id": "ningguogong", "name": "贾演", "house": "宁", "g": "m", "x": 13.15, "y": -1.0, "first": 2, "death": 2, "desc": "宁公，生了四个儿子；已去世。", "alt": [], "notes": [{"from": 53, "text": "名贾演（第 53 回春祭赏文书）。"}], "aliases": ["贾演", "宁国公"], "kind": "card", "tag": "宁国公", "tagAlt": []}, {"id": "unk_rong", "name": "？", "house": "荣", "g": "f", "x": 5.2, "y": -1.0, "first": 2, "death": 2, "desc": "书中没写名字。", "alt": [], "notes": [{"from": 2, "text": "原文没写她去世，这里是推断。"}], "aliases": [], "ph": true, "kind": "card", "tag": "", "tagAlt": [], "ptitle": "荣国公之妻（未写明）"}, {"id": "unk_ning", "name": "？", "house": "宁", "g": "f", "x": 14.25, "y": -1.0, "first": 2, "death": 2, "desc": "书中没写名字。", "alt": [], "notes": [{"from": 2, "text": "原文没写她去世，这里是推断。"}], "aliases": [], "ph": true, "kind": "card", "tag": "", "tagAlt": [], "ptitle": "宁国公之妻（未写明）"}, {"id": "goue", "name": "狗儿", "house": "外", "g": "m", "x": 13.1, "y": 0.25, "first": 6, "death": null, "desc": "王成之子，务农为生。", "alt": [], "notes": [], "aliases": ["狗儿"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "liushi", "name": "刘氏", "house": "外", "g": "f", "x": 12.0, "y": 0.25, "first": 6, "death": null, "desc": "", "alt": [], "notes": [], "aliases": ["刘氏"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "qinger", "name": "青儿", "house": "外", "g": "f", "x": 12.55, "y": 1.05, "first": 6, "death": null, "desc": "", "alt": [], "notes": [], "aliases": ["青儿"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "daishu", "name": "侍书", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 7, "death": null, "desc": "丫鬟。", "alt": [], "notes": [], "aliases": ["侍书", "待书"], "kind": "pill", "attach": {"to": "tanchun", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "ruhua", "name": "入画", "house": "宁", "g": "f", "x": 0, "y": 0, "first": 7, "death": null, "desc": "丫鬟。", "alt": [], "notes": [], "aliases": ["入画"], "kind": "pill", "attach": {"to": "xichun", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "cuilv", "name": "翠缕", "house": "史", "g": "f", "x": 0, "y": 0, "first": 31, "death": null, "desc": "丫鬟。", "alt": [], "notes": [], "aliases": ["翠缕"], "kind": "pill", "attach": {"to": "xiangyun", "side": "left", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "baoqin", "name": "抱琴", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 18, "death": null, "desc": "元春从宫中带回来的丫鬟。", "alt": [], "notes": [], "aliases": ["抱琴"], "kind": "pill", "attach": {"to": "yuanchun", "side": "below", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "hupo", "name": "琥珀", "house": "荣", "g": "f", "x": 0, "y": 0, "first": 20, "death": null, "desc": "丫鬟。", "alt": [], "notes": [], "aliases": ["琥珀"], "kind": "pill", "attach": {"to": "jiamu", "side": "above", "dx": 0, "per": 3}, "tag": "", "tagAlt": []}, {"id": "zhenfuren", "name": "甄夫人", "house": "外", "g": "f", "x": -0.9, "y": 0.0, "first": 57, "death": null, "desc": "江南甄家的夫人；甄家与贾府是老亲，又是世交。", "alt": [], "notes": [], "aliases": ["甄夫人"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "zhenyingjia", "name": "甄应嘉", "house": "外", "g": "m", "x": -2.0, "y": 0.0, "first": 114, "death": null, "desc": "表字友忠，金陵人氏，功勋之后，与贾府有亲。", "alt": [], "notes": [], "aliases": ["甄应嘉"], "kind": "card", "tag": "", "tagAlt": []}, {"id": "unk_zhao", "name": "？", "house": "荣", "g": "f", "x": 8.2, "y": 1.0, "first": 2, "death": null, "desc": "书中此时还没写是谁。", "alt": [], "notes": [], "aliases": [], "ph": true, "kind": "card", "tag": "", "tagAlt": [], "last": 19, "ptitle": "贾政之妾（未写明）"}], "edges": [{"a": "jiamu", "b": "jiashe", "t": "parent", "l": "母子", "from": 2}, {"a": "jiamu", "b": "jiazheng", "t": "parent", "l": "母子", "from": 2}, {"a": "jiamu", "b": "jiamin", "t": "parent", "l": "母女", "from": 2}, {"a": "jiashe", "b": "xingfuren", "t": "spouse", "l": "夫妻", "from": 3}, {"a": "jiazheng", "b": "wangfuren", "t": "spouse", "l": "夫妻", "from": 3}, {"a": "jiazheng", "b": "zhaoyiniang", "t": "spouse", "l": "妾", "from": 20}, {"a": "jiashe", "b": "jialian", "t": "parent", "l": "父子", "from": 2}, {"a": "jiashe", "b": "yingchun", "t": "parent", "l": "父女", "from": 2}, {"a": "jialian", "b": "fengjie", "t": "spouse", "l": "夫妻", "from": 3}, {"a": "jialian", "b": "pinger", "t": "spouse", "l": "通房", "from": 6}, {"a": "fengjie", "b": "pinger", "t": "servant", "l": "主仆", "from": 6}, {"a": "jialian", "b": "qiaojie", "t": "parent", "l": "父女", "from": 6}, {"a": "fengjie", "b": "qiaojie", "t": "parent", "l": "母女", "from": 6}, {"a": "jiazheng", "b": "jiazhu", "t": "parent", "l": "父子", "from": 2}, {"a": "jiazheng", "b": "yuanchun", "t": "parent", "l": "父女", "from": 2}, {"a": "jiazheng", "b": "baoyu", "t": "parent", "l": "父子", "from": 2}, {"a": "jiazheng", "b": "tanchun", "t": "parent", "l": "父女", "from": 2}, {"a": "jiazheng", "b": "jiahuan", "t": "parent", "l": "父子", "from": 18}, {"a": "wangfuren", "b": "jiazhu", "t": "parent", "l": "母子", "from": 3}, {"a": "wangfuren", "b": "yuanchun", "t": "parent", "l": "母女", "from": 3}, {"a": "wangfuren", "b": "baoyu", "t": "parent", "l": "母子", "from": 3}, {"a": "zhaoyiniang", "b": "tanchun", "t": "parent", "l": "母女", "from": 20}, {"a": "zhaoyiniang", "b": "jiahuan", "t": "parent", "l": "母子", "from": 20}, {"a": "jiazhu", "b": "lihuan", "t": "spouse", "l": "夫妻", "from": 4}, {"a": "jiazhu", "b": "jialan", "t": "parent", "l": "父子", "from": 4}, {"a": "lihuan", "b": "jialan", "t": "parent", "l": "母子", "from": 4}, {"a": "wangfuren", "b": "wangziteng", "t": "sibling", "l": "兄妹", "from": 3, "route": "gap", "gdx": -16}, {"a": "wangfuren", "b": "xueyima", "t": "sibling", "l": "姐妹", "from": 4, "route": "gap", "gdx": 16}, {"a": "wangziteng", "b": "xueyima", "t": "sibling", "l": "兄妹", "from": 4}, {"a": "wangfuren", "b": "fengjie", "t": "kin", "l": "姑侄", "from": 3}, {"a": "xingfuren", "b": "xingxiuyan", "t": "kin", "l": "姑侄", "from": 49, "route": "curve"}, {"a": "jiamu", "b": "yuanyang", "t": "servant", "l": "主仆", "from": 20}, {"a": "jiamin", "b": "daiyu", "t": "parent", "l": "母女", "from": 2}, {"a": "linruhai", "b": "jiamin", "t": "spouse", "l": "夫妻", "from": 2}, {"a": "linruhai", "b": "daiyu", "t": "parent", "l": "父女", "from": 2}, {"a": "baoyu", "b": "xiren", "t": "servant", "l": "主仆", "from": 3}, {"a": "baoyu", "b": "qingwen", "t": "servant", "l": "主仆", "from": 5}, {"a": "baoyu", "b": "sheyue", "t": "servant", "l": "主仆", "from": 5}, {"a": "baoyu", "b": "qiuwen", "t": "servant", "l": "主仆", "from": 19}, {"a": "baoyu", "b": "limama", "t": "servant", "l": "乳母", "from": 3}, {"a": "baoyu", "b": "mingyan", "t": "servant", "l": "主仆", "from": 9}, {"a": "daiyu", "b": "zijuan", "t": "servant", "l": "主仆", "from": 8}, {"a": "daiyu", "b": "xueyan", "t": "servant", "l": "主仆", "from": 3}, {"a": "baoyu", "b": "daiyu", "t": "love", "l": "情：初见如旧相识", "from": 3}, {"a": "xueyima", "b": "baochai", "t": "parent", "l": "母女", "from": 4}, {"a": "xueyima", "b": "xuepan", "t": "parent", "l": "母子", "from": 4}, {"a": "baochai", "b": "xuepan", "t": "sibling", "l": "兄妹", "from": 4}, {"a": "baochai", "b": "yinger", "t": "servant", "l": "主仆", "from": 7}, {"a": "zhenshiyin", "b": "xiangling", "t": "parent", "l": "父女", "from": 1}, {"a": "xuepan", "b": "xiajingui", "t": "spouse", "l": "夫妻", "from": 79}, {"a": "xuekui", "b": "xuebaoqin", "t": "sibling", "l": "兄妹", "from": 49}, {"a": "xuepan", "b": "xuekui", "t": "kin", "l": "堂兄弟", "from": 49, "nodraw": true}, {"a": "jiamu", "b": "xiangyun", "t": "kin", "l": "姑祖孙", "from": 20}, {"a": "jiajing", "b": "jiazhen", "t": "parent", "l": "父子", "from": 2}, {"a": "jiajing", "b": "xichun", "t": "parent", "l": "父女", "from": 2}, {"a": "jiazhen", "b": "xichun", "t": "sibling", "l": "兄妹", "from": 2}, {"a": "jiazhen", "b": "youshi", "t": "spouse", "l": "夫妻", "from": 5}, {"a": "jiazhen", "b": "jiarong", "t": "parent", "l": "父子", "from": 2}, {"a": "youshi", "b": "jiarong", "t": "parent", "l": "母子", "from": 5}, {"a": "jiarong", "b": "qinkeqing", "t": "spouse", "l": "夫妻", "from": 5}, {"a": "qinkeqing", "b": "qinzhong", "t": "sibling", "l": "姐弟", "from": 7, "until": 8}, {"a": "youlaoniang", "b": "youerjie", "t": "parent", "l": "母女", "from": 64}, {"a": "youlaoniang", "b": "yousanjie", "t": "parent", "l": "母女", "from": 64}, {"a": "youshi", "b": "youerjie", "t": "sibling", "l": "姐妹", "from": 63}, {"a": "youerjie", "b": "yousanjie", "t": "sibling", "l": "姐妹", "from": 63}, {"a": "jiarong", "b": "jiaqiang", "t": "kin", "l": "族兄弟", "from": 9}, {"a": "jiazhen", "b": "jiaoda", "t": "servant", "l": "老仆", "from": 7}, {"a": "baoyu", "b": "qinzhong", "t": "friend", "l": "朋友", "from": 7, "route": "qz"}, {"a": "baoyu", "b": "beijingwang", "t": "friend", "l": "朋友", "from": 14}, {"a": "baoyu", "b": "jiangyuhan", "t": "friend", "l": "朋友", "from": 28}, {"a": "baoyu", "b": "liuxianglian", "t": "friend", "l": "朋友", "from": 47}, {"a": "xichun", "b": "jiazhen", "t": "sibling", "l": "兄妹", "from": 2}, {"a": "jiayucun", "b": "zhenshiyin", "t": "friend", "l": "资助", "from": 1, "dir": "ba"}, {"a": "jiayucun", "b": "jiazheng", "t": "friend", "l": "攀附同宗", "from": 2, "dir": "ab"}, {"a": "lengzixing", "b": "zhouruijia", "t": "kin", "l": "岳婿", "from": 6, "route": "pillL"}, {"a": "lengzixing", "b": "jiayucun", "t": "friend", "l": "旧识", "from": 2}, {"a": "liulaolao", "b": "fengjie", "t": "friend", "l": "攀亲求助", "from": 6}, {"a": "liulaolao", "b": "wangfuren", "t": "kin", "l": "远亲", "from": 6}, {"a": "jiarui", "b": "jiarong", "t": "kin", "l": "同族", "from": 9}, {"a": "xuepan", "b": "xiangling", "t": "servant", "l": "买下了她", "from": 4}, {"a": "xuepan", "b": "xiangling", "t": "spouse", "l": "房里人（后为妾）", "from": 16}, {"a": "xiren", "b": "jiangyuhan", "t": "spouse", "l": "结为夫妻", "from": 120}, {"a": "baoyu", "b": "baochai", "t": "spouse", "l": "成婚", "from": 97}, {"a": "jialian", "b": "youerjie", "t": "spouse", "l": "偷娶为二房", "from": 64}, {"a": "baoyu", "b": "baochai", "t": "love", "l": "「金玉」之说（金锁与通灵玉相配）", "from": 8}, {"a": "jinchuan", "b": "yuchuan", "t": "sibling", "l": "姐妹", "from": 25}, {"a": "linzhixiao", "b": "xiaohong", "t": "kin", "l": "父女", "from": 27}, {"a": "wangfuren", "b": "jinchuan", "t": "servant", "l": "主仆", "from": 7}, {"a": "wangfuren", "b": "yuchuan", "t": "servant", "l": "主仆", "from": 25}, {"a": "yingchun", "b": "siqi", "t": "servant", "l": "主仆", "from": 7}, {"a": "jiadaishan", "b": "jiamu", "t": "spouse", "l": "夫妻", "from": 2}, {"a": "jiadaishan", "b": "jiashe", "t": "parent", "l": "父子", "from": 2}, {"a": "jiadaishan", "b": "jiazheng", "t": "parent", "l": "父子", "from": 2}, {"a": "jiadaishan", "b": "jiamin", "t": "parent", "l": "父女", "from": 2}, {"a": "youlaoniang", "b": "youshi", "t": "parent", "l": "继母女", "from": 64}, {"a": "xingfuren", "b": "jialian", "t": "parent", "l": "母子", "from": 44}, {"a": "unk_she", "b": "jiashe", "t": "spouse", "l": "妾", "from": 2}, {"a": "unk_she", "b": "yingchun", "t": "parent", "l": "母女", "from": 2}, {"a": "unk_jing", "b": "jiajing", "t": "spouse", "l": "夫妻", "from": 2}, {"a": "unk_jing", "b": "jiazhen", "t": "parent", "l": "母子", "from": 2}, {"a": "unk_jing", "b": "xichun", "t": "parent", "l": "母女", "from": 2}, {"a": "jiadaihua", "b": "jiajing", "t": "parent", "l": "父子", "from": 2}, {"a": "unk_dai", "b": "jiajing", "t": "parent", "l": "母子", "from": 2}, {"a": "unk_dai", "b": "jiadaihua", "t": "spouse", "l": "夫妻", "from": 2}, {"a": "rongguogong", "b": "jiadaishan", "t": "parent", "l": "父子", "from": 2}, {"a": "unk_rong", "b": "jiadaishan", "t": "parent", "l": "母子", "from": 2}, {"a": "unk_rong", "b": "rongguogong", "t": "spouse", "l": "夫妻", "from": 2}, {"a": "ningguogong", "b": "jiadaihua", "t": "parent", "l": "父子", "from": 2}, {"a": "unk_ning", "b": "jiadaihua", "t": "parent", "l": "母子", "from": 2}, {"a": "unk_ning", "b": "ningguogong", "t": "spouse", "l": "夫妻", "from": 2}, {"a": "ningguogong", "b": "rongguogong", "t": "sibling", "l": "兄弟", "from": 2}, {"a": "liulaolao", "b": "liushi", "t": "parent", "l": "母女", "from": 6}, {"a": "liushi", "b": "goue", "t": "spouse", "l": "夫妻", "from": 6}, {"a": "liushi", "b": "banr", "t": "parent", "l": "母子", "from": 6}, {"a": "goue", "b": "banr", "t": "parent", "l": "父子", "from": 6}, {"a": "liushi", "b": "qinger", "t": "parent", "l": "母女", "from": 6}, {"a": "goue", "b": "qinger", "t": "parent", "l": "父女", "from": 6}, {"a": "tanchun", "b": "daishu", "t": "servant", "l": "主仆", "from": 7}, {"a": "xichun", "b": "ruhua", "t": "servant", "l": "主仆", "from": 7}, {"a": "xiangyun", "b": "cuilv", "t": "servant", "l": "主仆", "from": 31}, {"a": "yuanchun", "b": "baoqin", "t": "servant", "l": "主仆", "from": 18}, {"a": "jiamu", "b": "hupo", "t": "servant", "l": "主仆", "from": 20}, {"a": "baoyu", "b": "xiaohong", "t": "servant", "l": "主仆", "from": 24, "until": 27}, {"a": "fengjie", "b": "xiaohong", "t": "servant", "l": "主仆", "from": 27}, {"a": "zhenfuren", "b": "zhenbaoyu", "t": "parent", "l": "母子", "from": 57}, {"a": "zhenyingjia", "b": "zhenbaoyu", "t": "parent", "l": "父子", "from": 114}, {"a": "zhenyingjia", "b": "zhenfuren", "t": "spouse", "l": "夫妻", "from": 114}, {"a": "xingxiuyan", "b": "miaoyu", "t": "friend", "l": "朋友", "from": 63}, {"a": "baochai", "b": "xuekui", "t": "kin", "l": "堂亲", "from": 49, "route": "curve"}, {"a": "zhenshiyin", "b": "xiangling", "t": "kin", "l": "父女", "from": 4, "route": "xl", "noPanel": true}, {"a": "wangziteng", "b": "xuepan", "t": "kin", "l": "舅甥", "from": 3, "until": 4}, {"a": "jiazheng", "b": "unk_zhao", "t": "spouse", "l": "妾", "from": 2, "until": 20}, {"a": "unk_zhao", "b": "tanchun", "t": "parent", "l": "母女", "from": 2, "until": 20}, {"a": "unk_zhao", "b": "jiahuan", "t": "parent", "l": "母子", "from": 18, "until": 20}, {"a": "beijingwang", "b": "jiangyuhan", "t": "friend", "l": "赠汗巾", "from": 28, "nodraw": true}, {"a": "liuxianglian", "b": "qinzhong", "t": "friend", "l": "旧友", "from": 47, "nodraw": true}, {"a": "qinkeqing", "b": "qinzhong", "t": "sibling", "l": "养姐弟", "from": 8}, {"a": "zhenfuren", "b": "jiamu", "t": "kin", "l": "老亲", "from": 57, "route": "zj"}, {"a": "baoyu", "b": "miaoyu", "t": "friend", "l": "槛外人", "from": 63, "nodraw": true}], "chapters": [{"n": 1, "t": "甄士隐梦幻识通灵 贾雨村风尘怀闺秀", "f": ["jiayucun"]}, {"n": 2, "t": "贾夫人仙逝扬州城 冷子兴演说荣国府", "f": ["jiayucun", "lengzixing"]}, {"n": 3, "t": "贾雨村夤缘复旧职 林黛玉抛父进京都", "f": ["daiyu", "jiamu", "baoyu", "jiayucun"]}, {"n": 4, "t": "薄命女偏逢薄命郎 葫芦僧乱判葫芦案", "f": ["jiayucun", "xuepan", "wangfuren"]}, {"n": 5, "t": "游幻境指迷十二钗 饮仙醪曲演红楼梦", "f": ["baoyu"]}, {"n": 6, "t": "贾宝玉初试云雨情 刘姥姥一进荣国府", "f": ["zhouruijia", "liulaolao", "fengjie", "baoyu"]}, {"n": 7, "t": "送宫花贾琏戏熙凤 宴宁府宝玉会秦钟", "f": ["zhouruijia", "fengjie", "baoyu"]}, {"n": 8, "t": "比通灵金莺微露意 探宝钗黛玉半含酸", "f": ["baoyu", "daiyu", "baochai"]}, {"n": 9, "t": "恋风流情友入家塾 起嫌疑顽童闹学堂", "f": ["baoyu", "qinzhong", "mingyan", "jiarui"]}, {"n": 10, "t": "金寡妇贪利权受辱 张太医论病细穷源", "f": ["jiazhen", "youshi", "jiarong", "qinkeqing"]}, {"n": 11, "t": "庆寿辰宁府排家宴 见熙凤贾瑞起淫心", "f": ["fengjie", "youshi", "jiamu"]}, {"n": 12, "t": "王熙凤毒设相思局 贾天祥正照风月鉴", "f": ["jiarui", "fengjie"]}, {"n": 13, "t": "秦可卿死封龙禁尉 王熙凤协理宁国府", "f": ["fengjie", "jiazhen", "qinkeqing", "wangfuren"]}, {"n": 14, "t": "林如海捐馆扬州城 贾宝玉路谒北静王", "f": ["fengjie", "baoyu", "beijingwang"]}, {"n": 15, "t": "王凤姐弄权铁槛寺 秦鲸卿得趣馒头庵", "f": ["baoyu", "fengjie", "qinzhong"]}, {"n": 16, "t": "贾元春才选凤藻宫 秦鲸卿夭逝黄泉路", "f": ["fengjie", "jialian", "qinzhong", "baoyu"]}, {"n": 17, "t": "大观园试才题对额 荣国府归省庆元宵", "f": ["jiazheng", "baoyu"]}, {"n": 18, "t": "隔珠帘父女勉忠勤 搦湘管姊弟裁题咏", "f": ["baoyu", "jiamu", "daiyu", "jiazheng"]}, {"n": 19, "t": "情切切良宵花解语 意绵绵静日玉生香", "f": ["baoyu", "xiren"]}, {"n": 20, "t": "王熙凤正言弹妒意 林黛玉俏语谑娇音", "f": ["baoyu", "daiyu", "fengjie", "baochai"]}, {"n": 21, "t": "贤袭人娇嗔箴宝玉 俏平儿软语救贾琏", "f": ["baoyu", "jialian", "pinger", "xiren"]}, {"n": 22, "t": "听曲文宝玉悟禅机 制灯迷贾政悲谶语", "f": ["baoyu", "jiamu", "daiyu", "jiazheng"]}, {"n": 23, "t": "西厢记妙词通戏语 牡丹亭艳曲警芳心", "f": ["baoyu", "daiyu", "jiazheng"]}, {"n": 24, "t": "醉金刚轻财尚义侠 痴女儿遗帕惹相思", "f": ["jiayun", "baoyu"]}, {"n": 25, "t": "魇魔法姊弟逢五鬼 红楼梦通灵遇双真", "f": ["daiyu", "baoyu", "wangfuren", "jiamu"]}, {"n": 26, "t": "蜂腰桥设言传心事 潇湘馆春困发幽情", "f": ["baoyu", "xiaohong", "daiyu", "jiayun"]}, {"n": 27, "t": "滴翠亭杨妃戏彩蝶 埋香冢飞燕泣残红", "f": ["baoyu", "xiaohong", "daiyu", "baochai"]}, {"n": 28, "t": "蒋玉菡情赠茜香罗 薛宝钗羞笼红麝串", "f": ["baoyu", "daiyu", "baochai"]}, {"n": 29, "t": "享福人福深还祷福 痴情女情重愈斟情", "f": ["jiamu", "daiyu", "baoyu", "jiazhen"]}, {"n": 30, "t": "宝钗借扇机带双敲 龄官划蔷痴及局外", "f": ["baoyu", "daiyu", "baochai"]}, {"n": 31, "t": "撕扇子作千金一笑 因麒麟伏白首双星 话", "f": ["baoyu", "xiangyun", "xiren", "daiyu"]}, {"n": 32, "t": "诉肺腑心迷活宝玉 含耻辱情烈死金钏", "f": ["xiangyun", "baoyu", "xiren", "daiyu"]}, {"n": 33, "t": "手足耽耽小动唇舌 不肖种种大承笞挞 却", "f": ["jiazheng", "baoyu", "jiamu", "wangfuren"]}, {"n": 34, "t": "情中情因情感妹妹 错里错以错劝哥哥", "f": ["xiren", "baoyu", "baochai", "daiyu"]}, {"n": 35, "t": "白玉钏亲尝莲叶羹 黄金莺巧结梅花络", "f": ["baoyu", "yinger", "baochai", "jiamu"]}, {"n": 36, "t": "绣鸳鸯梦兆绛芸轩 识分定情悟梨香院", "f": ["baoyu", "xiren", "daiyu", "baochai"]}, {"n": 37, "t": "秋爽斋偶结海棠社 蘅芜苑夜拟菊花题", "f": ["baoyu", "xiangyun", "baochai", "lihuan"]}, {"n": 38, "t": "林潇湘魁夺菊花诗 薛蘅芜讽和螃蟹咏", "f": ["jiamu", "fengjie", "xiangyun", "baoyu"]}, {"n": 39, "t": "村姥姥是信口开合 情哥哥偏寻根究底", "f": ["jiamu", "pinger", "liulaolao", "baoyu"]}, {"n": 40, "t": "史太君两宴大观园 金鸳鸯三宣牙牌令", "f": ["jiamu", "yuanyang", "liulaolao", "fengjie"]}, {"n": 41, "t": "栊翠庵茶品梅花雪 怡红院劫遇母蝗虫", "f": ["liulaolao", "jiamu", "miaoyu", "baoyu"]}, {"n": 42, "t": "蘅芜君兰言解疑癖 潇湘子雅谑补余香", "f": ["daiyu", "jiamu", "baochai", "liulaolao"]}, {"n": 43, "t": "闲取乐偶攒金庆寿 不了情暂撮土为香", "f": ["jiamu", "baoyu", "youshi", "fengjie"]}, {"n": 44, "t": "变生不测凤姐泼醋 喜出望外平儿理妆", "f": ["pinger", "fengjie", "jiamu", "jialian"]}, {"n": 45, "t": "金兰契互剖金兰语 风雨夕闷制风雨词", "f": ["daiyu", "fengjie", "jiamu", "baoyu"]}, {"n": 46, "t": "尴尬人难免尴尬事 鸳鸯女誓绝鸳鸯偶", "f": ["yuanyang", "jiamu", "fengjie", "pinger"]}, {"n": 47, "t": "呆霸王调情遭苦打 冷郎君惧祸走他乡", "f": ["xuepan", "jiamu", "xueyima", "fengjie"]}, {"n": 48, "t": "滥情人情误思游艺 慕雅女雅集苦吟诗", "f": ["xiangling", "baochai", "daiyu", "xuepan"]}, {"n": 49, "t": "琉璃世界白雪红梅 脂粉香娃割腥啖膻", "f": ["baoyu", "daiyu", "xiangyun", "jiamu"]}, {"n": 50, "t": "芦雪庵争联即景诗 暖香坞雅制春灯谜", "f": ["jiamu", "xiangyun", "baoyu", "daiyu"]}, {"n": 51, "t": "薛小妹新编怀古诗 胡庸医乱用虎狼药", "f": ["baoyu", "qingwen", "sheyue", "xiren"]}, {"n": 52, "t": "俏平儿情掩虾须镯 勇晴雯病补雀金裘", "f": ["baoyu", "qingwen", "jiamu", "sheyue"]}, {"n": 53, "t": "宁国府除夕祭宗祠 荣国府元宵开夜宴", "f": ["jiamu", "jiazhen", "jiarong", "youshi"]}, {"n": 54, "t": "史太君破陈腐旧套 王熙凤效戏彩斑衣", "f": ["jiamu", "fengjie", "baoyu"]}, {"n": 55, "t": "辱亲女愚妾争闲气 欺幼主刁奴蓄险心", "f": ["tanchun", "pinger", "lihuan", "wangfuren"]}, {"n": 56, "t": "敏探春兴利除宿弊 时宝钗小惠全大体", "f": ["baoyu", "jiamu", "tanchun", "baochai"]}, {"n": 57, "t": "慧紫鹃情辞试忙玉 慈姨妈爱语慰痴颦", "f": ["zijuan", "jiamu", "baoyu", "daiyu"]}, {"n": 58, "t": "杏子阴假凤泣虚凰 茜纱窗真情揆痴理", "f": ["baoyu", "xiren", "jiamu"]}, {"n": 59, "t": "柳叶渚边嗔莺咤燕 绛云轩里召将飞符", "f": ["yinger", "xiren", "baoyu", "daiyu"]}, {"n": 60, "t": "茉莉粉替去蔷薇硝 玫瑰露引来茯苓霜", "f": ["baoyu", "zhaoyiniang", "jiahuan", "tanchun"]}, {"n": 61, "t": "投鼠忌器宝玉瞒赃 判冤决狱平儿行权", "f": ["pinger", "baoyu", "linzhixiao", "siqi"]}, {"n": 62, "t": "憨湘云醉眠芍药茵届@呆香菱情解石榴裙", "f": ["baoyu", "xiangling", "tanchun", "xiren"]}, {"n": 63, "t": "寿怡红群芳开夜宴 死金丹独艳理亲丧", "f": ["baoyu", "xiren", "qingwen"]}, {"n": 64, "t": "幽淑女悲题五美吟 浪荡子情遗九龙佩", "f": ["jialian", "baoyu", "jiazhen", "jiarong"]}, {"n": 65, "t": "贾二舍偷娶尤二姨 尤三姐思嫁柳二郎", "f": ["jialian", "jiazhen", "yousanjie", "youerjie"]}, {"n": 66, "t": "情小妹耻情归地府 冷二郎一冷入空门", "f": ["jialian", "baoyu", "youerjie"]}, {"n": 67, "t": "见土仪颦卿思故里 闻秘事凤姐讯家童", "f": ["fengjie", "daiyu", "baoyu", "xiren"]}, {"n": 68, "t": "苦尤娘赚入大观园 酸凤姐大闹宁国府", "f": ["fengjie", "jiarong", "youerjie"]}, {"n": 69, "t": "弄小巧用借剑杀人 觉大限吞生金自逝", "f": ["fengjie", "jialian", "jiamu", "youerjie"]}, {"n": 70, "t": "林黛玉重建桃花社 史湘云偶填柳絮词", "f": ["baoyu", "daiyu", "xiangyun", "baochai"]}, {"n": 71, "t": "嫌隙人有心生嫌隙 鸳鸯女无意遇鸳鸯", "f": ["jiamu", "yuanyang", "fengjie", "youshi"]}, {"n": 72, "t": "王熙凤恃强羞说病 来旺妇倚势霸成亲", "f": ["fengjie", "jialian", "yuanyang", "pinger"]}, {"n": 73, "t": "痴丫头误拾绣春囊 懦小姐不问累金凤", "f": ["yingchun", "jiamu", "tanchun", "baoyu"]}, {"n": 74, "t": "惑奸谗抄检大观园 矢孤介杜绝宁国府", "f": ["fengjie", "baoyu", "wangfuren", "tanchun"]}, {"n": 75, "t": "开夜宴异兆发悲音 赏中秋新词得佳谶", "f": ["jiamu", "youshi", "jiazheng", "jiazhen"]}, {"n": 76, "t": "凸碧堂品笛感凄清 凹晶馆联诗悲寂寞", "f": ["daiyu", "jiamu", "xiangyun"]}, {"n": 77, "t": "俏丫鬟抱屈夭风流 美优伶斩情归水月", "f": ["baoyu", "wangfuren", "qingwen", "zhouruijia"]}, {"n": 78, "t": "老学士闲征诡画词 痴公子杜撰芙蓉诔", "f": ["baoyu", "jiazheng"]}, {"n": 79, "t": "薛文龙悔娶河东狮 贾迎春误嫁中山狼", "f": ["baoyu", "yingchun", "xiangling", "xuepan"]}, {"n": 80, "t": "美香菱屈受贪夫棒 王道士胡诌妒妇方", "f": ["xiangling", "xuepan", "baoyu"]}, {"n": 81, "t": "占旺相四美钓游鱼 奉严词两番入家塾", "f": ["baoyu", "jiamu"]}, {"n": 82, "t": "老学究讲义警顽心 病潇湘痴魂惊恶梦", "f": ["daiyu", "baoyu", "zijuan", "jiamu"]}, {"n": 83, "t": "省宫闱贾元妃染恙 闹闺阃薛宝钗吞声", "f": ["daiyu", "jiamu", "zijuan", "baochai"]}, {"n": 84, "t": "试文字宝玉始提亲 探惊风贾环重结怨", "f": ["jiamu", "baoyu", "jiazheng", "fengjie"]}, {"n": 85, "t": "贾存周报升郎中任 薛文起复惹放流刑", "f": ["baoyu", "jiamu", "xiren", "xueyima"]}, {"n": 86, "t": "受私贿老官翻案牍 寄闲情淑女解琴书", "f": ["baoyu", "xueyima", "daiyu", "xuepan"]}, {"n": 87, "t": "感深秋抚琴悲往事 坐禅寂走火入邪魔", "f": ["baoyu", "miaoyu", "daiyu", "xichun"]}, {"n": 88, "t": "博庭欢宝玉赞孤儿 正家法贾珍鞭悍仆", "f": ["jiamu", "fengjie", "jiayun", "jiazhen"]}, {"n": 89, "t": "人亡物在公子填词 蛇影杯弓颦卿绝粒", "f": ["baoyu", "daiyu", "zijuan", "xiren"]}, {"n": 90, "t": "失绵衣贫女耐嗷嘈 送果品小郎惊叵测", "f": ["fengjie", "zijuan", "daiyu", "xueyan"]}, {"n": 91, "t": "纵淫心宝蟾工设计 布疑阵宝玉妄谈禅", "f": ["baoyu", "xuekui", "xueyima", "daiyu"]}, {"n": 92, "t": "评女传巧姐慕贤良 玩母珠贾政参聚散", "f": ["jiazheng", "jiamu", "baoyu", "qiaojie"]}, {"n": 93, "t": "甄家仆投靠贾家门 水月庵掀翻风月案", "f": ["jiazheng", "jialian", "baoyu", "jiashe"]}, {"n": 94, "t": "宴海棠贾母赏花妖 失宝玉通灵知奇祸", "f": ["jiamu", "baoyu", "xiren", "wangfuren"]}, {"n": 95, "t": "因讹成实元妃薨逝 以假混真宝玉疯颠", "f": ["baoyu", "jiamu", "wangfuren", "xiren"]}, {"n": 96, "t": "瞒消息凤姐设奇谋 泄机关颦儿迷本性", "f": ["baoyu", "daiyu", "jiamu", "wangfuren"]}, {"n": 97, "t": "林黛玉焚稿断痴情 薛宝钗出闺成大礼", "f": ["daiyu", "jiamu", "zijuan", "baoyu"]}, {"n": 98, "t": "苦绛珠魂归离恨天 病神瑛泪洒相思地", "f": ["baoyu", "jiamu", "daiyu", "baochai"]}, {"n": 99, "t": "守官箴恶奴同破例 阅邸报老舅自担惊", "f": ["jiazheng", "jiamu", "xuepan"]}, {"n": 100, "t": "破好事香菱结深恨 悲远嫁宝玉感离情", "f": ["baoyu", "xiangling", "xuekui", "jiamu"]}, {"n": 101, "t": "大观园月夜感幽魂 散花寺神签惊异兆", "f": ["fengjie", "jialian"]}, {"n": 102, "t": "宁国府骨肉病灾襟腹@大观园符水驱妖孽", "f": ["jiazhen", "jiarong", "jiashe", "baoyu"]}, {"n": 103, "t": "施毒计金桂自焚身 昧真禅雨村空遇旧", "f": ["xiangling", "xueyima", "jiayucun", "zhouruijia"]}, {"n": 104, "t": "醉金刚小鳅生大浪 痴公子余痛触前情 话说贾雨村刚欲过渡，", "f": ["jiayucun", "jiazheng", "baoyu", "xiren"]}, {"n": 105, "t": "锦衣军查抄宁国府 骢马使弹劾平安州", "f": ["jiazheng", "jiamu", "jiashe"]}, {"n": 106, "t": "王熙凤致祸抱羞惭 贾太君祷天消祸患", "f": ["jiazheng", "jiamu", "fengjie", "jialian"]}, {"n": 107, "t": "散余资贾母明大义 复世职政老沐天恩", "f": ["jiamu", "jiazheng"]}, {"n": 108, "t": "强欢笑蘅芜庆生辰 死缠绵潇湘闻鬼哭", "f": ["jiamu", "baoyu", "yuanyang"]}, {"n": 109, "t": "候芳魂五儿承错爱 还孽债迎女返真元", "f": ["baoyu", "jiamu", "baochai", "xiren"]}, {"n": 110, "t": "史太君寿终归地府 王凤姐力诎失人心", "f": ["fengjie", "jiamu", "yuanyang"]}, {"n": 111, "t": "鸳鸯女殉主登太虚 狗彘奴欺天招伙盗", "f": ["yuanyang", "jiamu", "xichun", "fengjie"]}, {"n": 112, "t": "活冤孽妙尼遭大劫 死雠仇赵妾赴冥曹 话说凤姐命捆起上夜众", "f": ["jialian", "jiazheng", "fengjie", "miaoyu"]}, {"n": 113, "t": "忏宿冤凤姐托村妪 释旧憾情婢感痴郎", "f": ["fengjie", "liulaolao", "pinger", "baoyu"]}, {"n": 114, "t": "王熙凤历幻返金陵 甄应嘉蒙恩还玉阙", "f": ["fengjie", "baoyu", "jiazheng", "jialian"]}, {"n": 115, "t": "惑偏私惜春矢素志 证同类宝玉失相知", "f": ["baoyu"]}, {"n": 116, "t": "得通灵幻境悟仙缘 送慈柩故乡全孝道", "f": ["baoyu"]}, {"n": 117, "t": "阻超凡佳人双护玉 欣聚党恶子独承家", "f": ["baoyu", "wangfuren", "xiren", "jiaqiang"]}, {"n": 118, "t": "记微嫌舅兄欺弱女 惊谜语妻妾谏痴人", "f": ["baoyu", "wangfuren", "baochai"]}, {"n": 119, "t": "中乡魁宝玉却尘缘 沐皇恩贾家延世泽", "f": ["wangfuren", "baoyu", "pinger", "qiaojie"]}, {"n": 120, "t": "甄士隐详说太虚情 贾雨村归结红楼梦", "f": ["jiayucun", "baoyu", "jiazheng", "xiren"]}], "heads": [{"t": "荣国府", "x": -1.4, "y": -1.75, "ids": ["linruhai", "jiamin", "daiyu", "jiamu", "yuanyang", "jiashe", "xingfuren", "jiazheng", "wangfuren", "zhaoyiniang", "jialian", "fengjie", "yingchun", "pinger", "qiaojie", "jiazhu", "yuanchun", "baoyu", "tanchun", "jiahuan", "lihuan", "jialan", "xiren", "qingwen", "sheyue", "qiuwen", "limama", "mingyan", "zijuan", "xueyan", "xiangyun", "jiadaishan", "unk_she", "rongguogong", "unk_rong", "daishu", "cuilv", "baoqin", "hupo", "unk_zhao"]}, {"t": "宁国府", "x": 14.25, "y": -1.75, "ids": ["jiajing", "jiazhen", "youshi", "xichun", "jiarong", "qinkeqing", "qinzhong", "youlaoniang", "youerjie", "yousanjie", "jiarui", "jiaqiang", "jiayun", "jiaoda", "unk_jing", "jiadaihua", "unk_dai", "ningguogong", "unk_ning", "ruhua"]}]};
+const SX=112, SY=138, PAD=70, CW=96, CH=52, PW=64, PH=26, OW=86, OH=46;   // OW/OH：外姓人物的卡片尺寸（比贾府卡片小一号、比丫鬟标签大）
+const HOUSE_NAME={荣:"荣国府",宁:"宁国府",薛:"薛家",史:"史家",林:"林家",王:"王家",甄:"甄家",官:"官场",仙:"仙界",外:"其他"};
+const COLOR_KEY={荣:"jia1",宁:"jia2"};   // 贾家（荣/宁两种深浅）有自己的颜色，其余人物统一用外姓色
+const colorOf=h=>`var(--c-${COLOR_KEY[h]||"other"})`;
+const ETYPE={
+  spouse:{n:"夫妻",c:"var(--ln)",w:2.2,d:""}, parent:{n:"亲子",c:"var(--ln)",w:1.4,d:""}, sibling:{n:"姊妹",c:"var(--ln)",w:1.4,d:"5 4"},
+  kin:{n:"亲戚",c:"var(--rel)",w:1.3,d:"2 4"}, servant:{n:"主仆",c:"var(--tie)",w:1.3,d:"1 4"}, love:{n:"情感",c:"var(--c-jia1)",w:2,d:""}, friend:{n:"朋友",c:"var(--tie)",w:1.3,d:"7 3 1 3"}
+};
+const TREE_LABELS=new Set(["父子","父女","母子","母女","继母女"]);
+const $=s=>document.querySelector(s);
+const NS="http://www.w3.org/2000/svg";
+let curTag=null;   // 正在画哪几个人之间的线：画出来的线/点/标签都带上 data-r，选中人物时据此只显示相关的线
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);if(curTag&&p&&(p===gE||p===gT))e.dataset.r=curTag;return e};
+let chapter=1, showAll=false, mode='ch';
+const lim=()=>showAll?120:chapter;
+const byId={}; DATA.nodes.forEach(n=>{byId[n.id]=n; n.gender=n.g; n.out=n.kind==="card"&&!n.ph&&(n.curl||(n.house!=="荣"&&n.house!=="宁")); n.w=n.kind==="pill"?Math.max(PW,Math.ceil(n.name.length*12.5+30)):(n.out?OW:CW); n.h=n.kind==="pill"?PH:(n.out?OH:CH); if(n.shape==="plum"){ n.w=100; n.h=58; }});
+// 位置：卡片按坐标；小标签挂在主人下方或右侧
+DATA.nodes.forEach(n=>{ if(n.kind==="card"||(n.kind==="pill"&&!n.attach&&!n.attachT)){n.px=PAD+n.x*SX; n.py=PAD+n.y*SY;} });
+function pillMaster(n){ const L=lim(); const T=n.attachT||[Object.assign({from:0},n.attach)]; let cur=null; for(const t of T) if(L>=t.from) cur=t; return cur }
+function setPos(n){ n.g.setAttribute("transform",`translate(${n.px-n.w/2},${n.py-n.h/2})`) }
+function layoutPills(){
+  const P=DATA.nodes.filter(n=>n.kind==="pill"&&(n.attach||n.attachT));
+  const pass=cond=>{
+    const groups={};
+    P.filter(visN).forEach(n=>{ const t=pillMaster(n); if(!t) return; const m=byId[t.to]; if(!m||!cond(m)) return; n.cur=t; (groups[t.to+"|"+t.side+"|"+(t.dx||0)]=groups[t.to+"|"+t.side+"|"+(t.dx||0)]||[]).push(n) });
+    for(const k in groups){ const [to,side]=k.split("|"), m=byId[to], list=groups[k], mw=m.w, mh=m.h;
+      if(m.px==null||isNaN(m.px)) continue;
+      if(side==="below"){ const per=list[0].cur.per||3; list.forEach((n,i)=>{ const r=Math.floor(i/per), c=i%per, cnt=Math.min(per,list.length-r*per);
+        const row=list.slice(r*per,r*per+cnt), rowW=row.reduce((s,x)=>s+x.w,0)+(cnt-1)*6, before=row.slice(0,c).reduce((s,x)=>s+x.w+6,0); n.px=m.px-rowW/2+before+n.w/2+(n.cur.dx||0)*SX; n.py=m.py+mh/2+20+(n.cur.dy||0)+r*(PH+6); }); }
+      else if(side==="left") list.forEach((n,i)=>{ n.px=m.px-mw/2-n.w/2-8; n.py=m.py+i*(PH+6); });
+      else if(side==="above"){ const per=list[0].cur.per||1; list.forEach((n,i)=>{ const r=Math.floor(i/per), c=i%per, cnt=Math.min(per,list.length-r*per), row=list.slice(r*per,r*per+cnt), rowW=row.reduce((a,x)=>a+x.w,0)+(cnt-1)*6, before=row.slice(0,c).reduce((a,x)=>a+x.w+6,0); n.px=m.px-rowW/2+before+n.w/2+(n.cur.dx||0)*SX; n.py=m.py-mh/2-20-r*(PH+6); }); }
+      else list.forEach((n,i)=>{ n.px=m.px+mw/2+n.w/2+(m.kind==="card"?46:12); n.py=m.py+i*(PH+6); });
+    }
+  };
+  pass(m=>m.kind==="card"); pass(m=>m.kind==="pill");
+  P.forEach(n=>{ if(n.px!=null&&!isNaN(n.px)) setPos(n) });
+}
+layoutPills();
+let selected=null, view={x:0,y:0,k:1};
+try{const s=localStorage.getItem("hlm-ch"); if(s) chapter=Math.min(120,Math.max(1,parseInt(s)||1));}catch(e){}
+const QP=new URLSearchParams(location.search); if(QP.get("ch")) chapter=Math.min(120,Math.max(1,parseInt(QP.get("ch"))||1)); if(QP.get("all")){ mode=QP.get("all")==="end"?"end":"start"; showAll=true; }; 
+const APPEARANCE = {
+  "source": {
+    "url": "https://www.xiaohongshu.com/discovery/item/6a75d9ca00000000330301bb",
+    "title": "吐血整理！红楼梦里丝织物的古典颜色大全集！",
+    "swatches": {
+      "雨过天青": "#b8d9d2",
+      "秋香": "#b8a848",
+      "松绿": "#3c8c6e",
+      "霞影纱": "#f2b8b8",
+      "月白": "#e8f0f2",
+      "藕荷": "#e4c6d0",
+      "大红": "#c82423",
+      "杨妃": "#f4c2c2",
+      "桃红": "#f0b0b8",
+      "石榴红": "#d84840",
+      "杏子红": "#e67060",
+      "蜜合": "#f2e8d4",
+      "鹅黄": "#f2dd98",
+      "豆绿": "#b8d8a8",
+      "水绿": "#94c8a8",
+      "松花": "#b8c068",
+      "柳绿": "#afdd22",
+      "葱绿": "#88b868",
+      "莲青": "#588882",
+      "石青": "#283c50"
+    },
+    "rose_cover_sample": "#be6c9c",
+    "note": "单独色卡的 HEX / RGB 优先；玫瑰紫取封面色条。界面文字、卡片与深色背景按参考色相调整明度，以保持可读性。"
+  },
+  "palettes": [
+    {
+      "id": "rose",
+      "name": "霞影纱",
+      "tokens": {
+        "--bg": "#f2b8b8",
+        "--panel": "#f7d9d3",
+        "--card": "#f7d9d3",
+        "--card-m": "#dbc7e5",
+        "--card-f": "#f3d4c3",
+        "--ink": "#492c42",
+        "--ink2": "#664557",
+        "--ink3": "#64495a",
+        "--accent": "#87466b",
+        "--c-jia1": "#87466b",
+        "--c-jia2": "#985137",
+        "--c-other": "#406579",
+        "--rel": "#5d4873",
+        "--rel-bg": "#eaddea",
+        "--ln": "#816177",
+        "--tie": "#705034",
+        "--pin": "#795172",
+        "--line": "#d4b6b6",
+        "--dot": "#dea8ab",
+        "--seal": "#87466b",
+        "--seal-bg": "#eecdcb",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(73,44,66,.17),0 2px 5px rgba(73,44,66,.05)",
+        "--brand-bg": "#87466b",
+        "--brand-ink": "#fff1e9",
+        "--native-scheme": "light",
+        "--plum": "#7d1b48",
+        "--plum-ln": "#4e0f2c"
+      }
+    },
+    {
+      "id": "yangfei",
+      "name": "杨妃",
+      "tokens": {
+        "--bg": "#f4c2c2",
+        "--panel": "#fadfdf",
+        "--card": "#fadfdf",
+        "--card-m": "#d8d4ec",
+        "--card-f": "#f8dcc8",
+        "--ink": "#4a2a30",
+        "--ink2": "#66404a",
+        "--ink3": "#654650",
+        "--accent": "#a03a4e",
+        "--c-jia1": "#9c374b",
+        "--c-jia2": "#7a5718",
+        "--c-other": "#386670",
+        "--rel": "#55507a",
+        "--rel-bg": "#e6def0",
+        "--ln": "#85606a",
+        "--tie": "#6c4e33",
+        "--pin": "#7d4d70",
+        "--line": "#dcb6b8",
+        "--dot": "#e4afb2",
+        "--seal": "#a03a4e",
+        "--seal-bg": "#f1d0d0",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(74,42,48,.16),0 2px 5px rgba(74,42,48,.05)",
+        "--brand-bg": "#a03a4e",
+        "--brand-ink": "#fff2ea",
+        "--native-scheme": "light",
+        "--plum": "#d4472a",
+        "--plum-ln": "#7e2112"
+      }
+    },
+    {
+      "id": "peach",
+      "name": "桃红",
+      "tokens": {
+        "--bg": "#f0b0b8",
+        "--panel": "#f3ccd3",
+        "--card": "#f3ccd3",
+        "--card-m": "#cdc8e5",
+        "--card-f": "#f5d7be",
+        "--ink": "#4e2d3f",
+        "--ink2": "#684052",
+        "--ink3": "#634553",
+        "--accent": "#9b405e",
+        "--c-jia1": "#9b405e",
+        "--c-jia2": "#83581d",
+        "--c-other": "#3c6771",
+        "--rel": "#474b70",
+        "--rel-bg": "#d7d7ed",
+        "--ln": "#825d6d",
+        "--tie": "#694b2c",
+        "--pin": "#79567d",
+        "--line": "#d0acb4",
+        "--dot": "#dca1aa",
+        "--seal": "#9b405e",
+        "--seal-bg": "#ecc1ca",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(78,45,63,.14),0 2px 5px rgba(78,45,63,.04)",
+        "--brand-bg": "#9b405e",
+        "--brand-ink": "#fff4e8",
+        "--native-scheme": "light",
+        "--plum": "#6e2a78",
+        "--plum-ln": "#3f1448"
+      }
+    },
+    {
+      "id": "lotus",
+      "name": "藕荷",
+      "tokens": {
+        "--bg": "#e4c6d0",
+        "--panel": "#efdae5",
+        "--card": "#efdae5",
+        "--card-m": "#c7d4e9",
+        "--card-f": "#edc8be",
+        "--ink": "#422d43",
+        "--ink2": "#61445e",
+        "--ink3": "#674f64",
+        "--accent": "#825675",
+        "--c-jia1": "#805177",
+        "--c-jia2": "#a25442",
+        "--c-other": "#426e67",
+        "--rel": "#425776",
+        "--rel-bg": "#d5dfed",
+        "--ln": "#86677b",
+        "--tie": "#6b5332",
+        "--pin": "#77557b",
+        "--line": "#ceb9c6",
+        "--dot": "#d2b5c1",
+        "--seal": "#825675",
+        "--seal-bg": "#e6cfdc",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(66,45,67,.17),0 2px 5px rgba(66,45,67,.05)",
+        "--brand-bg": "#81526f",
+        "--brand-ink": "#fff2ec",
+        "--native-scheme": "light",
+        "--plum": "#c4283a",
+        "--plum-ln": "#6f1420"
+      }
+    },
+    {
+      "id": "cream",
+      "name": "蜜合",
+      "tokens": {
+        "--bg": "#f2e8d4",
+        "--panel": "#faf4e6",
+        "--card": "#faf4e6",
+        "--card-m": "#d3dccc",
+        "--card-f": "#f1d6c0",
+        "--ink": "#3b3120",
+        "--ink2": "#594b33",
+        "--ink3": "#5b4e38",
+        "--accent": "#7b4a2b",
+        "--c-jia1": "#7b4a2b",
+        "--c-jia2": "#3d6a60",
+        "--c-other": "#74486f",
+        "--rel": "#4b5d78",
+        "--rel-bg": "#e3e2d3",
+        "--ln": "#7c6948",
+        "--tie": "#6c473a",
+        "--pin": "#566f64",
+        "--line": "#dccfb4",
+        "--dot": "#dccdae",
+        "--seal": "#7b4a2b",
+        "--seal-bg": "#eadcc0",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(59,49,32,.16),0 2px 5px rgba(59,49,32,.05)",
+        "--brand-bg": "#7b4a2b",
+        "--brand-ink": "#fbf3e1",
+        "--native-scheme": "light",
+        "--plum": "#d12f2f",
+        "--plum-ln": "#7c1717"
+      }
+    },
+    {
+      "id": "green",
+      "name": "豆绿",
+      "tokens": {
+        "--bg": "#b8d8a8",
+        "--panel": "#deedcb",
+        "--card": "#deedcb",
+        "--card-m": "#b7d3d6",
+        "--card-f": "#efe0be",
+        "--ink": "#243f2e",
+        "--ink2": "#395641",
+        "--ink3": "#445c4a",
+        "--accent": "#296c52",
+        "--c-jia1": "#216347",
+        "--c-jia2": "#a14e75",
+        "--c-other": "#79672a",
+        "--rel": "#5a5082",
+        "--rel-bg": "#e0daf0",
+        "--ln": "#4e7961",
+        "--tie": "#8a4b50",
+        "--pin": "#2f6c5c",
+        "--line": "#b9caac",
+        "--dot": "#a8c79b",
+        "--seal": "#296c52",
+        "--seal-bg": "#d0e3c1",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(36,63,46,.17),0 2px 5px rgba(36,63,46,.05)",
+        "--brand-bg": "#286b50",
+        "--brand-ink": "#f4f3dd",
+        "--native-scheme": "light",
+        "--plum": "#e0357d",
+        "--plum-ln": "#8a1048"
+      }
+    },
+    {
+      "id": "scallion",
+      "name": "葱绿",
+      "tokens": {
+        "--bg": "#88b868",
+        "--panel": "#d3e8bd",
+        "--card": "#d3e8bd",
+        "--card-m": "#b9d7da",
+        "--card-f": "#f0e2bd",
+        "--ink": "#1b3320",
+        "--ink2": "#223d28",
+        "--ink3": "#254230",
+        "--accent": "#1c5a3b",
+        "--c-jia1": "#1a583a",
+        "--c-jia2": "#86396a",
+        "--c-other": "#65521a",
+        "--rel": "#473f78",
+        "--rel-bg": "#e3dcf2",
+        "--ln": "#33583f",
+        "--tie": "#6a3238",
+        "--pin": "#245b4a",
+        "--line": "#a7cb8b",
+        "--dot": "#78a758",
+        "--seal": "#1c5a3b",
+        "--seal-bg": "#c4dfac",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(27,51,32,.2),0 2px 5px rgba(27,51,32,.06)",
+        "--brand-bg": "#1c5a3b",
+        "--brand-ink": "#eef6d8",
+        "--native-scheme": "light",
+        "--plum": "#fff0f3",
+        "--plum-ln": "#8c2a4a"
+      }
+    },
+    {
+      "id": "autumn",
+      "name": "秋香",
+      "tokens": {
+        "--bg": "#b8a848",
+        "--panel": "#d4c77d",
+        "--card": "#d4c77d",
+        "--card-m": "#bec99a",
+        "--card-f": "#dfbea0",
+        "--ink": "#443b1f",
+        "--ink2": "#463a1d",
+        "--ink3": "#443b1f",
+        "--accent": "#705c19",
+        "--c-jia1": "#5e4d15",
+        "--c-jia2": "#764030",
+        "--c-other": "#2d564f",
+        "--rel": "#274035",
+        "--rel-bg": "#c9d5bd",
+        "--ln": "#605422",
+        "--tie": "#653f2d",
+        "--pin": "#416353",
+        "--line": "#b1a566",
+        "--dot": "#a89942",
+        "--seal": "#705c19",
+        "--seal-bg": "#ccbe75",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(68,59,31,.17),0 2px 5px rgba(68,59,31,.05)",
+        "--brand-bg": "#705c19",
+        "--brand-ink": "#f4e7b1",
+        "--native-scheme": "light",
+        "--plum": "#ff8fae",
+        "--plum-ln": "#8c1f45"
+      }
+    },
+    {
+      "id": "goose",
+      "name": "鹅黄",
+      "tokens": {
+        "--bg": "#f2dd98",
+        "--panel": "#faf1cc",
+        "--card": "#faf1cc",
+        "--card-m": "#cadbd2",
+        "--card-f": "#f3d5ae",
+        "--ink": "#3a3016",
+        "--ink2": "#554620",
+        "--ink3": "#574822",
+        "--accent": "#7a4c0f",
+        "--c-jia1": "#7a4c0f",
+        "--c-jia2": "#8a3a4e",
+        "--c-other": "#2f6a5c",
+        "--rel": "#4a5a80",
+        "--rel-bg": "#ece6c8",
+        "--ln": "#7a6630",
+        "--tie": "#6e4132",
+        "--pin": "#4f6e55",
+        "--line": "#dccb84",
+        "--dot": "#e0c96e",
+        "--seal": "#7a4c0f",
+        "--seal-bg": "#f0e2a8",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(58,48,22,.17),0 2px 5px rgba(58,48,22,.05)",
+        "--brand-bg": "#7a4c0f",
+        "--brand-ink": "#fbf1cf",
+        "--native-scheme": "light",
+        "--plum": "#b3186a",
+        "--plum-ln": "#650a3b"
+      }
+    },
+    {
+      "id": "blue",
+      "name": "月白",
+      "tokens": {
+        "--bg": "#e8f0f2",
+        "--panel": "#f0f6f7",
+        "--card": "#f0f6f7",
+        "--card-m": "#c5d8e6",
+        "--card-f": "#ead3e3",
+        "--ink": "#243b52",
+        "--ink2": "#3e566d",
+        "--ink3": "#475d71",
+        "--accent": "#315671",
+        "--c-jia1": "#315671",
+        "--c-jia2": "#407973",
+        "--c-other": "#9f597b",
+        "--rel": "#4e696a",
+        "--rel-bg": "#dce9e5",
+        "--ln": "#667f97",
+        "--tie": "#825340",
+        "--pin": "#3a5e7a",
+        "--line": "#c7d1d7",
+        "--dot": "#d1dbe0",
+        "--seal": "#315671",
+        "--seal-bg": "#e1e9ec",
+        "--on-accent": "#ffffff",
+        "--shadow": "0 12px 36px rgba(36,59,82,.17),0 2px 5px rgba(36,59,82,.05)",
+        "--brand-bg": "#283c50",
+        "--brand-ink": "#e8f0f2",
+        "--native-scheme": "light",
+        "--plum": "#d9363e",
+        "--plum-ln": "#7d1519"
+      }
+    }
+  ]
+}
+;
+const PALETTES=APPEARANCE.palettes;
+// Resolve earlier palette URLs and saved preferences into six independent colors.
+const LEGACY_PALETTES={a:'blue',b:'green',c:'lotus',d:'blue',e:'rose',f:'green',g:'lotus',h:'blue',i:'lotus',j:'rose',k:'lotus',l:'rose',m:'lotus',n:'blue',o:'lotus',honey:'lotus',teal:'green'};
+const PALETTE_IDS=new Set(PALETTES.map(p=>p.id));
+let palette='blue',savedTheme='';
+try{palette=localStorage.getItem('hlm-pal')||'blue';savedTheme=localStorage.getItem('hlm-theme')||''}catch(_){}
+if(QP.has('pal'))palette=QP.get('pal');
+palette=LEGACY_PALETTES[palette]||palette;
+if(!PALETTE_IDS.has(palette))palette='blue';
+// Preserve retained former dark colors; removed colors fall back to their light counterpart.
+if(savedTheme==='dark')palette=({rose:'peach',lotus:'autumn'})[palette]||palette;
+function applyAppearance(){
+  const root=document.documentElement,chosen=PALETTES.find(p=>p.id===palette);
+  root.dataset.pal=palette;
+  Object.entries(chosen.tokens).forEach(([key,value])=>root.style.setProperty(key,value));
+  root.style.colorScheme=chosen.tokens['--native-scheme'];
+}
+applyAppearance();
+saveAppearance();
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+
+
+// ---------- 构建 ----------
+const gH=$("#gH"), gE=$("#gE"), gL=$("#gL"), gT=$("#gT"), gS=$("#gS"), gN=$("#gN"), vp=$("#vp"), svg=$("#svg");
+DATA.heads.forEach(h=>{h.el=el("text",{class:"head",x:PAD+h.x*SX-CW/2,y:PAD+h.y*SY},gH); h.el.textContent=h.t;});
+DATA.nodes.forEach(n=>{
+  const g=el("g",{class:"node "+n.kind+(n.out?" out":"")+(n.gender==="f"?" fem":" mal")+(n.ph?" ph":""),transform:`translate(${(n.px||0)-n.w/2},${(n.py||0)-n.h/2})`},gN); n.g=g;
+  const inner=el("g",{},g); n.inner=inner;
+  if(n.kind==="card"){
+    const W=n.w,H=n.h,tx=W/2+(n.out?0:2)+(n.shape==="plum"?-8:0);
+    if(n.shape==="plum"){                                               // 妙玉：外姓的圆角卡片，右下角探出一枝栊翠庵的红梅，一直伸到框外
+      const d=`M10,0 H${W-10} Q${W},0 ${W},10 V${H-10} Q${W},${H} ${W-10},${H} H10 Q0,${H} 0,${H-10} V10 Q0,0 10,0 Z`;
+      el("path",{class:"ring",d,transform:`translate(-4,-4) scale(${(W+8)/W},${(H+8)/H})`},inner);
+      el("path",{class:"card",d},inner);
+      el("path",{class:"plumbr",d:"M107,68 C97,56 92,44 94,32 C96,20 104,12 108,2 C110,-4 112,-8 113,-12"},inner);
+      el("path",{class:"plumbr",d:"M95,38 C90,32 86,28 80,26"},inner);
+      el("path",{class:"plumbr",d:"M100,20 C104,22 108,22 112,26"},inner);
+      el("circle",{class:"plumfl",cx:107.0,cy:64.5,r:1.9},inner);el("circle",{class:"plumfl",cx:109.3,cy:66.2,r:1.9},inner);el("circle",{class:"plumfl",cx:108.5,cy:69.0,r:1.9},inner);el("circle",{class:"plumfl",cx:105.5,cy:69.0,r:1.9},inner);el("circle",{class:"plumfl",cx:104.7,cy:66.2,r:1.9},inner);el("circle",{class:"plumct",cx:107,cy:67,r:1.0},inner);
+      el("circle",{class:"plumfl",cx:93.5,cy:37.0,r:2.3},inner);el("circle",{class:"plumfl",cx:96.0,cy:39.6,r:2.3},inner);el("circle",{class:"plumfl",cx:94.3,cy:42.7,r:2.3},inner);el("circle",{class:"plumfl",cx:90.8,cy:42.1,r:2.3},inner);el("circle",{class:"plumfl",cx:90.3,cy:38.6,r:2.3},inner);el("circle",{class:"plumct",cx:93,cy:40,r:1.2},inner);
+      el("circle",{class:"plumfl",cx:100.4,cy:19.1,r:2.4},inner);el("circle",{class:"plumfl",cx:102.2,cy:22.4,r:2.4},inner);el("circle",{class:"plumfl",cx:99.6,cy:25.2,r:2.4},inner);el("circle",{class:"plumfl",cx:96.2,cy:23.6,r:2.4},inner);el("circle",{class:"plumfl",cx:96.6,cy:19.8,r:2.4},inner);el("circle",{class:"plumct",cx:99,cy:22,r:1.3},inner);
+      el("circle",{class:"plumfl",cx:80.2,cy:23.2,r:2.2},inner);el("circle",{class:"plumfl",cx:82.8,cy:25.4,r:2.2},inner);el("circle",{class:"plumfl",cx:81.5,cy:28.4,r:2.2},inner);el("circle",{class:"plumfl",cx:78.1,cy:28.2,r:2.2},inner);el("circle",{class:"plumfl",cx:77.4,cy:24.9,r:2.2},inner);el("circle",{class:"plumct",cx:80,cy:26,r:1.1},inner);
+      el("circle",{class:"plumfl",cx:110.1,cy:-1.3,r:2.6},inner);el("circle",{class:"plumfl",cx:112.4,cy:2.0,r:2.6},inner);el("circle",{class:"plumfl",cx:110.1,cy:5.3,r:2.6},inner);el("circle",{class:"plumfl",cx:106.2,cy:4.0,r:2.6},inner);el("circle",{class:"plumfl",cx:106.2,cy:-0.0,r:2.6},inner);el("circle",{class:"plumct",cx:109,cy:2,r:1.4},inner);
+      el("circle",{class:"plumfl",cx:113.7,cy:24.0,r:2.0},inner);el("circle",{class:"plumfl",cx:114.5,cy:27.0,r:2.0},inner);el("circle",{class:"plumfl",cx:111.8,cy:28.7,r:2.0},inner);el("circle",{class:"plumfl",cx:109.4,cy:26.6,r:2.0},inner);el("circle",{class:"plumfl",cx:110.6,cy:23.7,r:2.0},inner);el("circle",{class:"plumct",cx:112,cy:26,r:1.1},inner);
+      el("circle",{class:"plumfl",cx:113.0,cy:-13.8,r:2.2},inner);el("circle",{class:"plumfl",cx:115.7,cy:-11.9,r:2.2},inner);el("circle",{class:"plumfl",cx:114.7,cy:-8.7,r:2.2},inner);el("circle",{class:"plumfl",cx:111.3,cy:-8.7,r:2.2},inner);el("circle",{class:"plumfl",cx:110.3,cy:-11.9,r:2.2},inner);el("circle",{class:"plumct",cx:113,cy:-11,r:1.1},inner);
+    } else if(n.out){                                                          // 外姓人物：卷角——右下角卷起一角，像翻旧了的纸页
+      const c=13, r=10;
+      const d=`M${r},0 H${W-r} Q${W},0 ${W},${r} V${H-c} L${W-c},${H} H${r} Q0,${H} 0,${H-r} V${r} Q0,0 ${r},0 Z`;
+      el("path",{class:"ring",d,transform:`translate(-4,-4) scale(${(W+8)/W},${(H+8)/H})`},inner);
+      el("path",{class:"card",d},inner);
+      el("path",{class:"curl",d:`M${W},${H-c} L${W-c},${H} Q${W-c-1},${H-c-1} ${W},${H-c} Z`,...(n.curl?{style:`fill:${colorOf(n.house)}`}:{})},inner);
+      el("path",{class:"curlhi",d:`M${W},${H-c} Q${W-c+2},${H-c+2} ${W-c},${H}`},inner);
+    } else {
+      el("rect",{class:"ring",x:-4,y:-4,width:W+8,height:H+8,rx:12},inner);
+      el("rect",{class:"card",width:W,height:H,rx:9},inner);
+    }
+    if(!n.out) el("rect",{class:"bar",x:0,y:0,width:5,height:H,rx:2,fill:colorOf(n.house)},inner);   // 外姓人物不画左侧色条，用整圈描边代替
+    n.tn=el("text",{class:"nm",x:tx,y:n.out?19:21,"text-anchor":"middle"},inner);
+    n.ts=el("text",{class:"sub",x:tx,y:n.out?33:36,"text-anchor":"middle"},inner);
+    n.hg=el("g",{class:"home",style:"display:none"},inner);
+    n.hpin=el("g",{class:"pin"},n.hg); el("path",{d:"M0,-5 C-3,-5 -5,-3 -5,0 C-5,3.4 0,8 0,8 C0,8 5,3.4 5,0 C5,-3 3,-5 0,-5 Z"},n.hpin); el("circle",{cx:0,cy:-.3,r:1.9,class:"pinhole"},n.hpin);
+    n.ht=el("text",{class:"hometxt",x:n.w/2+7,y:46,"text-anchor":"middle"},n.hg);
+    n.box=el("rect",{class:"nbox",rx:2},inner);
+  } else {
+    el("rect",{class:"ring",x:-3,y:-3,width:n.w+6,height:PH+6,rx:16},inner);
+    el("rect",{class:"card",width:n.w,height:PH,rx:13},inner);
+    n.dot=el("circle",{cx:11,cy:PH/2,r:3.2,fill:colorOf(n.house)},inner);
+    n.tn=el("text",{class:"pn",x:n.w/2+5,y:17.5,"text-anchor":"middle"},inner); n.ts=null; n.box=el("rect",{class:"nbox",rx:2},inner);
+  }
+  g.addEventListener("click",ev=>{ev.stopPropagation(); if(moved){moved=false;return} select(n.id)});
+});
+(function(){
+  const lg=$("#legend");
+  const ic=s=>`<svg class="lgic" viewBox="0 0 40 18" aria-hidden="true">${s}</svg>`;
+  lg.innerHTML=`<button class="lgbtn" id="lgbtn" aria-label="图例" aria-controls="lgdetail" aria-expanded="false"><span class="sw" style="background:var(--c-jia1)"></span><span class="sw" style="background:var(--c-jia2)"></span><span class="sw" style="background:var(--c-other)"></span><i>▴</i></button>
+  <div class="lgdetail" id="lgdetail" role="region" aria-label="图例说明" hidden>
+    <div class="lggrid">
+      <span>${ic('<rect x="2" y="1" width="36" height="16" rx="4" class="mc plain"/><rect x="2" y="1" width="4" height="16" rx="1" style="fill:var(--c-jia1)"/>')}荣</span>
+      <span>${ic('<rect x="2" y="1" width="36" height="16" rx="4" class="mc plain"/><rect x="2" y="1" width="4" height="16" rx="1" style="fill:var(--c-jia2)"/>')}宁</span>
+      <span>${ic('<path d="M7 1 H31 Q38 1 38 7 V11 L32 17 H7 Q2 17 2 11 V7 Q2 1 7 1 Z" class="mc plain"/><path d="M38 11 L32 17 Q31 12 38 11 Z" style="fill:var(--c-other);opacity:.9"/><path d="M38 11 Q33 12 32 17" fill="none" stroke="#fff" stroke-width=".8" opacity=".55"/>')}外姓</span>
+      <span>${ic('<rect x="2" y="1" width="36" height="16" rx="4" class="mc male"/>')}男</span>
+      <span>${ic('<rect x="2" y="1" width="36" height="16" rx="4" class="mc female"/>')}女</span>
+      <span><svg class="lgic" style="width:78px" viewBox="0 0 78 18" aria-hidden="true"><rect x="1" y="1" width="30" height="16" rx="4" class="mc male"/><rect x="1" y="1" width="3" height="16" class="mb"/><text x="18" y="12.5" text-anchor="middle" class="lgn">张三</text><path d="M35 9 H43 M40.5 6.5 L43 9 L40.5 11.5" class="ln" fill="none"/><g class="gdead"><rect x="47" y="1" width="30" height="16" rx="4" class="mc male"/><rect x="47" y="1" width="3" height="16" class="mb"/><text x="64" y="12.5" text-anchor="middle" class="lgn">张三</text></g></svg>已故</span>
+      <span>${ic('<line x1="2" y1="9" x2="15" y2="9" class="ln"/><circle cx="20" cy="9" r="3.4" class="rg"/><line x1="25" y1="9" x2="38" y2="9" class="ln"/>')}夫妻</span>
+      <span>${ic('<line x1="2" y1="9" x2="15" y2="9" class="ln" stroke-dasharray="3 2.5"/><circle cx="20" cy="9" r="3.4" class="rg"/><line x1="25" y1="9" x2="38" y2="9" class="ln" stroke-dasharray="3 2.5"/>')}侍妾</span>
+      <span>${ic('<rect x="6" y="2" width="28" height="14" rx="7" class="mc plain"/><circle cx="14" cy="9" r="2.6" class="dt"/>')}仆人</span>
+    </div>
+  </div>`;
+  $("#lgbtn").onclick=()=>setLegendOpen($("#lgdetail").hidden);
+})();
+function setLegendOpen(open){
+  $("#lgdetail").hidden=!open;$("#lgbtn").setAttribute("aria-expanded",String(open));
+}
+// Capture clicks so selecting a graph node also dismisses the legend.
+document.addEventListener('click',e=>{if(!e.target.closest('#lgbtn'))setLegendOpen(false)},true);
+document.addEventListener('focusin',e=>{if(!e.target.closest('#legend'))setLegendOpen(false)});
+
+// ---------- 状态 ----------
+function visN(n){ if(n.last!=null) return !showAll&&n.first<=chapter&&chapter<=n.last; return showAll||n.first<=chapter }   // last：只在某几回里出现的占位卡
+const visE=e=>{const L=showAll?120:chapter; return e.from<=L&&(e.until==null||L<e.until)&&(showAll||(visN(byId[e.a])&&visN(byId[e.b])))};
+function dispName(n){let nm=n.name; if(n.alt.length){ const L=showAll?(mode==="start"?1:120):chapter; for(const a of n.alt) if(L>=a.from) nm=a.name; } return nm;}
+function isDead(n){ if(n.death==null) return false; if(!showAll) return chapter>=n.death; return mode==='end'?true:n.death<=2 }
+function setMode(m){ mode=m; showAll=(m!=='ch'); }
+function homeOf(n){
+  const L=mode==='start'?2:lim();
+  return n.home&&L>=n.home.from?n.home.name:"";
+}
+function layoutCard(n){            // 名字 / 称谓 / 住处：有几行就排几行
+  const off=n.shape==="plum"?6:0, offx=n.shape==="plum"?-8:0;   // 妙玉的卡片更高，文字略下移、略左移，给右边的梅枝让位
+  const tag=n.ts.textContent, hm=homeOf(n);
+  const k=(tag?1:0)+(hm?1:0);
+  const yName=n.out?(k===0?n.h/2+5:(k===1?20:16)):(k===0?CH/2+5:(k===1?24:20));
+  n.tn.setAttribute("y",yName+off);
+  n.ts.setAttribute("y",(n.out?(tag&&hm?29:35):(tag&&hm?34:40))+off);
+  n.hg.style.display=hm?"":"none";n.ht.textContent=hm;
+  if(hm){ const y=(n.out?(tag?41:35):(tag?46:40))+off; n.ht.setAttribute("text-anchor","start");
+    const w=n.ht.getBBox().width, blockW=9+w, start=n.w/2+(n.out?0:2)+offx-blockW/2;
+    n.ht.setAttribute("x",start+9); n.ht.setAttribute("y",y);
+    n.hpin.setAttribute("transform",`translate(${start+3.6},${y-5.2}) scale(.72)`); }
+}
+function updBox(n){ n.box.style.display='none'; return; if(isDead(n)){const b=n.tn.getBBox(); const px=n.kind==='pill'?5:8, py=n.kind==='pill'?1:2.5; n.box.setAttribute('x',b.x-px); n.box.setAttribute('y',b.y+1-py+0.5); n.box.setAttribute('width',b.width+px*2); n.box.setAttribute('height',b.height-1+py*2-1); n.box.setAttribute('rx',n.kind==='pill'?6:4); n.box.style.display='block';} else n.box.style.display='none'}
+function tagOf(n){let t=n.tag; const L=showAll?(mode==="start"?1:120):chapter; for(const a of n.tagAlt) if(L>=a.from) t=a.text; return t}
+
+// Relation labels reserve their full pill bounds, including labels already placed.
+let treeLabelBoxes=[];
+let deferLabels=null, pathSamples=[];
+function relationChip(parent,cls,text,pointAt,placed){
+  const tag=curTag;
+  if(deferLabels){ const own=gE.lastElementChild; deferLabels.push(()=>{const prev=curTag;curTag=tag;const r=relationChipNow(parent,cls,text,pointAt,placed,own);curTag=prev;return r}); return null; }
+  return relationChipNow(parent,cls,text,pointAt,placed,null);
+}
+function relationChipNow(parent,cls,text,pointAt,placed,own){
+  const lg=el("g",{class:"kchip"+(cls?" "+cls:"")},parent);
+  const rr=el("rect",{rx:8,ry:8},lg), tx=el("text",{"text-anchor":"middle",y:3.6},lg); tx.textContent=text;
+  const w=tx.getBBox().width+12,h=16;
+  rr.setAttribute("x",-w/2);rr.setAttribute("y",-h/2);rr.setAttribute("width",w);rr.setAttribute("height",h);
+  const nodes=DATA.nodes.filter(n=>visN(n)&&Number.isFinite(n.px)).map(n=>({x:n.px-n.w/2,y:n.py-n.h/2,w:n.w,h:n.h}));
+  const boxAt=p=>({x:p[0]-w/2,y:p[1]-h/2,w,h});
+  const overlaps=(a,b,gap)=>a.x<b.x+b.w+gap&&a.x+a.w>b.x-gap&&a.y<b.y+b.h+gap&&a.y+a.h>b.y-gap;
+  let soft=false, solidPad=5;   // soft：允许压在别的虚线（亲戚/朋友）上；solidPad：离实线（家谱线）至少留多远
+  const free=p=>!nodes.some(b=>overlaps(boxAt(p),b,6))&&!placed.some(b=>overlaps(boxAt(p),b,4))&&!pathSamples.some(sm=>{
+    if(sm.el===own) return false;
+    const dashed=/\b(kin|tie)\b/.test(sm.el.getAttribute("class")||"");
+    if(dashed&&soft) return false;
+    const pad=dashed?5:solidPad;
+    return sm.pts.some(q=>Math.abs(q[0]-p[0])<w/2+pad&&Math.abs(q[1]-p[1])<h/2+pad);
+  });
+  const steps=[.5,.44,.56,.38,.62,.32,.68,.26,.74,.2,.8,.14,.86];
+  let pos=null,anchor=null;
+  const tryPlace=()=>{ for(const t of steps){const q=pointAt(t);if(free(q)){pos=q;return true}} return false };
+  solidPad=44; tryPlace();                          // 先找一个离家谱线较远的位置，免得标签被误当成旁边那条家谱线的说明
+  if(!pos){ solidPad=5; tryPlace(); }
+  if(!pos){ soft=true; tryPlace(); }                // 线太挤时，宁可压在别的虚线上，也要把标签放在自己的线上
+  soft=false; solidPad=5;
+  if(!pos)outer:for(const d of [24,40,64,88,120,160,208,264]){
+    for(const t of steps){const q=pointAt(t),a=pointAt(Math.max(0,t-.01)),b=pointAt(Math.min(1,t+.01)),dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1;
+      for(const side of [1,-1]){const c=[q[0]-dy/len*d*side,q[1]+dx/len*d*side];if(free(c)){pos=c;anchor=q;break outer}}
+    }
+  }
+  pos=pos||pointAt(.5);lg.setAttribute("transform",`translate(${pos[0]},${pos[1]})`);
+  placed.push(boxAt(pos));
+  if(anchor){el("line",{x1:anchor[0],y1:anchor[1],x2:pos[0],y2:pos[1],class:"label-leader"+(cls.includes("tie")?" tie":"")},parent===gS?gL:gE)}
+  return lg;
+}
+function cardPort(n,toward){
+  const dx=toward[0]-n.px,dy=toward[1]-n.py;
+  const t=1/Math.max(Math.abs(dx)/(n.w/2),Math.abs(dy)/(n.h/2),.0001);
+  return [n.px+dx*t,n.py+dy*t];
+}
+
+// ---------- 族谱连线：夫妻并排 + 父母到子女的直角线 ----------
+function drawTree(){
+  gE.innerHTML=""; gT.innerHTML=""; treeLabelBoxes=[]; deferLabels=[];
+  // 夫妻：只画相邻的
+  DATA.edges.filter(e=>e.t==="spouse"&&visE(e)).forEach(e=>{
+    curTag=e.a+" "+e.b;
+    const a=byId[e.a],b=byId[e.b];
+    if((a.kind==="pill"&&a.attach)||(b.kind==="pill"&&b.attach)){               // 一端是挂在别人下面的小标签（如平儿）：从卡片下沿拉一小段虚线
+      const P=a.kind==="pill"?a:b, C=P===a?b:a; if(C.kind!=="card"||!Number.isFinite(P.px)) return;
+      const y1=C.py+C.h/2, y2=P.py-P.h/2; if(y2-y1>8){ el("line",{x1:P.px,x2:P.px,y1,y2,class:"tl sp","stroke-dasharray":"4 3"},gE); el("circle",{cx:P.px,cy:(y1+y2)/2,r:3.4,class:"sring"},gE); } return; }
+    if(a.kind!=="card"||b.kind!=="card") return;
+    if(Math.abs(a.py-b.py)>SY*1.5&&Math.abs(a.px-b.px)<SX*.8){          // 不在同一行、几乎在同一列（如宝玉与宝钗）：绕到右侧走一条圆角折线，中间一个小环
+      const U=a.py<b.py?a:b, D=U===a?b:a, r=12, cx=U.px+U.w/2+52, y0=U.py+12, y1=D.py-D.h/2-30, xe=D.px, y2=D.py-D.h/2;
+      const path=`M${U.px+U.w/2},${y0} H${cx-r} Q${cx},${y0} ${cx},${y0+r} V${y1-r} Q${cx},${y1} ${cx-r},${y1} H${xe+r} Q${xe},${y1} ${xe},${y1+r} V${y2}`;
+      el("path",{d:path,class:"tl pr mar"},gE);
+      el("circle",{cx:cx,cy:y0+(y1-y0)*.82,r:3.4,class:"sring"},gE); return;
+    }
+    if(Math.abs(a.px-b.px)<SX*.3&&Math.abs(a.py-b.py)>2&&Math.abs(a.py-b.py)<=SY*1.5){      // 上下相邻：一条竖线，中间一个小环
+      const U=a.py<b.py?a:b, D=U===a?b:a, x=(U.px+D.px)/2, y1=U.py+U.h/2, y2=D.py-D.h/2;
+      el("line",{x1:x,x2:x,y1,y2,class:"tl sp","stroke-dasharray":/妾|二房|通房/.test(e.l)?"4 3":""},gE);
+      el("circle",{cx:x,cy:(y1+y2)/2,r:3.4,class:"sring"},gE); return;
+    }
+    if(Math.abs(a.py-b.py)>2||Math.abs(a.px-b.px)>SX*1.35) return;
+    const l=a.px<b.px?a:b, r=a.px<b.px?b:a, x1=l.px+l.w/2, x2=r.px-r.w/2;
+    const dash=/妾|二房|通房/.test(e.l)?"4 3":"";
+    el("line",{x1,x2,y1:l.py,y2:l.py,class:"tl sp","stroke-dasharray":dash},gE);
+    el("circle",{cx:(x1+x2)/2,cy:l.py,r:3.4,class:"sring"},gE);
+  });
+  // 亲戚 / 姐妹：只画「图里没有别的连线表示」的亲属；统一用 XMind 风格的虚曲线
+  const par={}; DATA.edges.filter(e=>e.t==="parent"&&TREE_LABELS.has(e.l)&&visE(e)).forEach(e=>{(par[e.b]=par[e.b]||new Set()).add(e.a)});
+  const sameTree=(x,y)=>par[x]&&par[y]&&[...par[x]].some(p=>par[y].has(p));
+  const drawn=new Set(), chanN={};
+  let K="kin", curE=null;
+  const arrowOf=(p0,p3)=>{ if(!curE||!curE.dir) return -1; const S=byId[curE.dir==="ab"?curE.a:curE.b]; return Math.hypot(p0[0]-S.px,p0[1]-S.py)<Math.hypot(p3[0]-S.px,p3[1]-S.py)?1:0; };
+  const decorate=(pth,p0,p3)=>{ const i=arrowOf(p0,p3); if(i===1) pth.setAttribute("marker-end","url(#arw)"); else if(i===0) pth.setAttribute("marker-start","url(#arw)"); return i; };
+  const dots=(p0,p3,skip)=>[p0,p3].forEach((p,i)=>{ if(i!==skip) el("circle",{cx:p[0],cy:p[1],r:3.4,class:"kdot "+K},gT); });
+  const chip=(pointAt,txt)=>relationChip(gT,K,txt,pointAt,treeLabelBoxes);
+  const bez=(p0,p1,p2,p3,t)=>{const u=1-t; return [u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0], u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]]};
+  const relArc=(p0,c,p3,txt)=>{
+    const pth=el("path",{d:`M${p0[0]},${p0[1]} Q${c[0]},${c[1]} ${p3[0]},${p3[1]}`,class:"tl "+K+" cur"},gE); dots(p0,p3,decorate(pth,p0,p3));
+    chip(t=>{const u=1-t;return [u*u*p0[0]+2*u*t*c[0]+t*t*p3[0],u*u*p0[1]+2*u*t*c[1]+t*t*p3[1]]},txt); };
+  const relCurve=(p0,p1,p2,p3,txt)=>{
+    const pth=el("path",{d:`M${p0[0]},${p0[1]} C${p1[0]},${p1[1]} ${p2[0]},${p2[1]} ${p3[0]},${p3[1]}`,class:"tl "+K+" cur"},gE); dots(p0,p3,decorate(pth,p0,p3));
+    chip(t=>bez(p0,p1,p2,p3,t),txt); };
+  const relPoly=(pts,txt)=>{
+    let d=`M${pts[0][0]},${pts[0][1]}`;
+    for(let i=1;i<pts.length-1;i++){ const p=pts[i-1],c=pts[i],n=pts[i+1], l1=Math.hypot(c[0]-p[0],c[1]-p[1]), l2=Math.hypot(n[0]-c[0],n[1]-c[1]), r=Math.min(14,l1/2,l2/2);
+      d+=` L${c[0]-(c[0]-p[0])/l1*r},${c[1]-(c[1]-p[1])/l1*r} Q${c[0]},${c[1]} ${c[0]+(n[0]-c[0])/l2*r},${c[1]+(n[1]-c[1])/l2*r}`; }
+    const last=pts[pts.length-1]; d+=` L${last[0]},${last[1]}`;
+    el("path",{d,class:"tl "+K+" cur"},gE); dots(pts[0],last,-1);
+    const seg=pts.slice(1).map((p,i)=>Math.hypot(p[0]-pts[i][0],p[1]-pts[i][1])), tot=seg.reduce((a,b)=>a+b,0);
+    chip(t=>{ let s=Math.min(.999,Math.max(.001,t))*tot; for(let i=0;i<seg.length;i++){ if(s<=seg[i]){ const u=s/seg[i]; return [pts[i][0]+(pts[i+1][0]-pts[i][0])*u,pts[i][1]+(pts[i+1][1]-pts[i][1])*u]; } s-=seg[i]; } return last; },txt); };
+  DATA.edges.filter(e=>(e.t==="sibling"||e.t==="kin"||e.t==="friend")&&visE(e)).forEach(e=>{
+    const a=byId[e.a],b=byId[e.b]; if(a.px==null||b.px==null||e.nodraw) return;
+    K=e.t==="friend"?"tie":"kin"; curE=e; curTag=e.a+" "+e.b;
+    if(e.route==="qz"){ const R=a.px+a.w/2, yc=Math.max(a.py,b.py)+SY*.6; relPoly([[R,a.py],[R+30,a.py],[R+30,yc],[b.px,yc],[b.px,b.py+b.h/2]],e.l); return; }   // 宝玉—秦钟：绕到第三排下方的空隙里走
+    if(e.route==="xl"){ const x=PAD+6.35*SX, y0=a.py+a.h/2; relPoly([[a.px,y0],[a.px,y0+22],[x,y0+22],[x,b.py],[b.px-b.w/2,b.py]],e.l); return; }   // 甄士隐—香菱：沿卡片之间的竖向空隙一路下去
+    if(e.route==="gap"){ const row=DATA.nodes.filter(n=>visN(n)&&n.kind==="card"&&Math.abs(n.py-(a.py+SY))<4&&n.px>a.px-2).sort((p,q)=>p.px-q.px);   // 王夫人—王子腾/薛姨妈：从王夫人下一排的卡片之间的空隙穿下去，不压在贾珠身上
+      let gx=null,best=0; for(let i=0;i<row.length-1;i++){ const gw=(row[i+1].px-row[i+1].w/2)-(row[i].px+row[i].w/2); if(gw>best){best=gw;gx=(row[i].px+row[i].w/2+row[i+1].px-row[i+1].w/2)/2} }
+      if(gx==null){ const p0=[a.px,a.py+a.h/2], p3=[b.px,b.py-b.h/2]; relCurve(p0,[p0[0],p0[1]+120],[p3[0],p3[1]-120],p3,e.l); return; }
+      gx+=(e.gdx||0); const y0=a.py+a.h/2, ya=y0+22, yb=a.py+SY+a.h/2+34; relPoly([[a.px+20,y0],[a.px+20,ya],[gx,ya],[gx,yb],[b.px,yb],[b.px,b.py-b.h/2]],e.l); return; }
+    if(e.route==="zj"){ const yT=b.py-b.h/2-70, xE=b.px-100; relPoly([[a.px,a.py-a.h/2],[a.px,yT],[xE,yT],[xE,b.py-14],[b.px-b.w/2,b.py-14]],e.l); return; }   // 甄夫人—贾母：从上方绕过史湘云一带
+    if(e.route==="pillL"){ if(!Number.isFinite(b.px)) return; const p0=[a.px,a.py+a.h/2], p3=[b.px-b.w/2,b.py]; relCurve(p0,[p0[0],p0[1]+50],[p3[0]-40,p3[1]],p3,e.l); return; }   // 冷子兴—周瑞家的（小标签）
+    if(e.t==="friend"&&Math.hypot(a.px-b.px,a.py-b.py)>560) return;      // 太远的朋友线不画，详情里有
+    if(sameTree(e.a,e.b)) return;                                  // 已经在同一棵家谱里（同一个母亲），不重复写
+    if(e.t==="friend"&&Math.abs(b.py-a.py)>=SY*.6){
+      const U=a.py<b.py?a:b,D=U===a?b:a;
+      const servants=DATA.nodes.filter(n=>visN(n)&&n.kind==="pill"&&pillMaster(n)?.to===U.id&&pillMaster(n)?.side==="below");
+      if(servants.length){
+        const side=D.px>=U.px?1:-1;
+        const edge=side>0?Math.max(U.px+U.w/2,...servants.map(n=>n.px+n.w/2)):Math.min(U.px-U.w/2,...servants.map(n=>n.px-n.w/2));
+        const k=(chanN[U.id]=(chanN[U.id]||0)+1)-1, channel=edge+side*(74+k*14), p0=[U.px+side*U.w/2,U.py-12], p3=[D.px,D.py-D.h/2];     // 起点比婚姻线高一点，避免两条线从同一个点出发
+        relCurve(p0,[channel,U.py+(p3[1]-U.py)*.45],[p3[0]-70,p3[1]-18],p3,e.l);return;          // 每条线各走各的通道，并从上方落进目标卡片，避免与同一排的其他卡片重叠
+      }
+    }
+    if(e.route==="curve"){ const p0=[a.px+a.w/2,a.py], p3=[b.px,b.py-b.h/2]; relCurve(p0,[p0[0]+(p3[0]-p0[0])*.5,p0[1]],[p3[0],p3[1]-(p3[1]-p0[1])*.45],p3,e.l); return; }
+    if(e.route==="vcurve"){ const p0=[a.px+24,a.py+a.h/2], p3=[b.px,b.py-b.h/2], gp=p3[1]-p0[1]; relCurve(p0,[p0[0],p0[1]+gp*.7],[p3[0],p3[1]-gp*.7],p3,e.l); return; }
+    if(e.route==="curve2"){ const p0=[b.px,b.py-b.h/2], p3=[a.px-a.w/2,a.py]; relCurve(p0,[p0[0],p0[1]-170],[p3[0]-230,p3[1]],p3,e.l); return; }
+    const dx=b.px-a.px, dy=b.py-a.py;
+    const key=[e.a,e.b].sort().join(); if(drawn.has(key)) return;
+    if(Math.abs(dy)<SY*0.7&&Math.abs(dx)<=SX*(e.t==='sibling'?7:3.2)){                 // 同一行
+      const L=dx<0?b:a, R=dx<0?a:b, x1=L.px+L.w/2, x2=R.px-R.w/2, y=(L.py+R.py)/2; if(x2-x1<0) return;
+      const needW=(e.l||"").length*10+52;                        // 标签（加两端留白）至少要这么宽
+      if(x2-x1<needW){ drawn.add(key);
+        const hasBelow=DATA.nodes.some(n=>n.kind==="pill"&&visN(n)&&pillMaster(n)&&(pillMaster(n).to===L.id||pillMaster(n).to===R.id)&&pillMaster(n).side==="below");
+        if(hasBelow){ const y1=L.py-L.h/2, y2=R.py-R.h/2, top=Math.min(y1,y2); relCurve([L.px,y1],[L.px,top-62],[R.px-30,top-62],[R.px-30,y2],e.l); return; }   // 下面挂着小标签时，改走卡片上方的弧
+        const yb=Math.max(L.py+L.h/2,R.py+R.h/2); relCurve([L.px,yb],[L.px,yb+64],[R.px,yb+64],[R.px,yb],e.l); return; }
+      const blocked=DATA.nodes.some(n=>n!==a&&n!==b&&visN(n)&&Math.abs(n.py-y)<n.h/2+2&&n.px+n.w/2>x1+1&&n.px-n.w/2<x2-1);
+      if(blocked){ drawn.add(key); const yb=L.py+L.h/2, xl=L.px+20, xr=R.px-20, w=xr-xl; relCurve([xl,yb],[xl+w*.2,yb+74],[xr-w*.2,yb+74],[xr,yb],e.l); return; }
+      if(Math.abs(dx)>SX*(e.t==='sibling'?7:2.6)) return;
+      drawn.add(key); relArc([x1,y],[(x1+x2)/2,y-34],[x2,y],e.l); return;
+    }
+    if(Math.abs(dx)<SX*0.7&&Math.abs(dy)<=SY*1.3){                  // 同一列，上下紧挨着
+      const U=dy<0?b:a, D=dy<0?a:b, x=(U.px+D.px)/2, y1=U.py+U.h/2, y2=D.py-D.h/2; if(y2-y1<0) return;
+      if(y2-y1<30){ drawn.add(key); const r1=U.px+U.w/2, r2=D.px+D.w/2; relCurve([r1,U.py],[r1+70,U.py],[r2+70,D.py],[r2,D.py],e.l); return; }   // 上下太近：从右侧绕一个弧
+      drawn.add(key); relArc([x,y1],[x+34,(y1+y2)/2],[x,y2],e.l); return;
+    }
+
+    // 离得远、又不在同一行或同一列：S 形曲线，从上方卡片的下沿出发，落到下方卡片的上沿
+    if(Math.abs(dy)>=SY*0.6){
+      if((a.kind==="pill"&&a.attach)||(b.kind==="pill"&&b.attach)) return;
+      drawn.add(key); const U=dy<0?b:a, D=dy<0?a:b, sg=D.px>=U.px?1:-1;
+      const p0=[U.px+sg*20,U.py+U.h/2], p3=[D.px-sg*20,D.py-D.h/2], gp=p3[1]-p0[1];
+      const above=DATA.nodes.filter(n=>n.kind==="pill"&&visN(n)&&Number.isFinite(n.px)&&pillMaster(n)&&pillMaster(n).to===D.id&&pillMaster(n).side==="above");
+      if(above.length){ const left=Math.min(...above.map(n=>n.px-n.w/2)); p3[0]=Math.max(D.px-D.w/2+12,Math.min(D.px+D.w/2-12,left-10)); }   // 目标卡片上方挂着小标签时，线落在小标签旁边
+      const p1=[p0[0],p0[1]+gp*.8], p2=[p3[0],p3[1]-gp*.8];
+      const pth=el("path",{d:`M${p0[0]},${p0[1]} C${p1[0]},${p1[1]} ${p2[0]},${p2[1]} ${p3[0]},${p3[1]}`,class:"tl "+K+" cur far"},gE); dots(p0,p3,decorate(pth,p0,p3));
+      chip(t=>bez(p0,p1,p2,p3,t),e.l);
+    }
+  });
+  curTag=null;
+  // 亲子：同一对父母的孩子合成一组；父亲有多位夫人时，线从各自的生母出发
+  const units={}, lab={};
+  DATA.edges.filter(e=>e.t==="parent"&&TREE_LABELS.has(e.l)&&visE(e)).forEach(e=>{
+    const c=byId[e.b], p=byId[e.a]; if(c.kind!=="card"||p.kind!=="card") return;
+    if(c.py-p.py<SY*0.6||c.py-p.py>SY*1.5||Math.abs(c.px-p.px)>SX*8) return;   // 只画同一棵家谱里的相邻两代
+    (units[e.b]=units[e.b]||[]).push(e.a); lab[e.b+"|"+e.a]=e.l;
+  });
+  const groups={};
+  for(const c in units){const key=units[c].slice().sort().join("+"); (groups[key]=groups[key]||{ps:units[c].slice().sort(),cs:[]}).cs.push(c)}
+  // 先算出每组的起点和横线范围，再按范围错开高度，避免横线叠在一起
+  const list=Object.values(groups).map(g=>{
+    const P=g.ps.map(i=>byId[i]), C=g.cs.map(i=>byId[i]);
+    const mom=P.find(n=>n.gender==="f"), anchor=mom||P[0];               // 有生母就从生母出发
+    let dashed=false;
+    if(P.length===2){ const sp=DATA.edges.find(e=>e.t==="spouse"&&((e.a===g.ps[0]&&e.b===g.ps[1])||(e.a===g.ps[1]&&e.b===g.ps[0]))); dashed=!!(sp&&/妾/.test(sp.l)); }
+    const xs=C.map(n=>n.px).concat([anchor.px]);
+    return {g,P,C,anchor,dashed,ax:anchor.px,ay:anchor.py+anchor.h/2,x0:Math.min(...xs),x1:Math.max(...xs),row:Math.round(anchor.py)};
+  }).sort((a,b)=>a.x0-b.x0);
+  const lvl={}; const FR=[.34,.5,.66,.8];
+  list.forEach(u=>{ const used=lvl[u.row]=lvl[u.row]||FR.map(()=>-1e9); let k=used.findIndex(x=>x<u.x0-4); if(k<0) k=0; used[k]=u.x1; u.frac=FR[k]; });
+  list.forEach(u=>{
+    const {g,C,ax,ay,dashed}=u, ps=g.ps; const ct=Math.min(...C.map(n=>n.py-n.h/2)), by=ay+(ct-ay)*u.frac, R=9;
+    C.forEach(n=>{ curTag=ps.join(" ")+" "+n.id; const cx=n.px, step=lab[n.id+"|"+ps[0]]==="继母女";
+      let d;
+      if(Math.abs(cx-ax)<1) d=`M${ax},${ay} V${n.py-n.h/2}`;
+      else { const dir=cx>ax?1:-1, r=Math.min(R,Math.abs(cx-ax)/2,by-ay-1);
+        d=`M${ax},${ay} V${by-r} Q${ax},${by} ${ax+dir*r},${by} H${cx-dir*r} Q${cx},${by} ${cx},${by+r} V${n.py-n.h/2}`; }
+      el("path",{d,class:"tl pr"+(step?" dsh":"")},gE);
+      if(step) relationChip(gT,"","继母女",t=>[cx,by+(ct-by)*t],treeLabelBoxes);
+    });
+    curTag=ps.join(" ")+" "+C.map(c=>c.id).join(" ");
+    el("circle",{cx:ax,cy:ay,r:2.6,class:"tdot"},gE);
+    curTag=null;
+  });
+  // 所有线都画完以后，再统一放关系标签：标签不压在别的线上
+  pathSamples=[...gE.querySelectorAll("path,line")].map(elm=>{ const pts=[]; try{ if(elm.tagName==="line"){ const x1=+elm.getAttribute("x1"),x2=+elm.getAttribute("x2"),y1=+elm.getAttribute("y1"),y2=+elm.getAttribute("y2"),n=Math.max(2,Math.ceil(Math.hypot(x2-x1,y2-y1)/6)); for(let k=0;k<=n;k++) pts.push([x1+(x2-x1)*k/n,y1+(y2-y1)*k/n]); } else { const L=elm.getTotalLength(); for(let l=0;l<=L;l+=6){ const q=elm.getPointAtLength(l); pts.push([q.x,q.y]); } } }catch(_){} return {el:elm,pts}; });
+  const q=deferLabels; deferLabels=null; q.forEach(f=>f());
+}
+
+function render(prev){
+  $("#cn").textContent=mode==="ch"?"第 "+chapter+" 回":(mode==="start"?"全书 · 开篇":"全书 · 终局"); markGrid();
+  $("#prev").disabled=mode!=="ch"||chapter===1; $("#next").disabled=mode!=="ch"||chapter===120;
+  const c=DATA.chapters[chapter-1]; $("#ct").textContent=mode==="ch"?c.t:(mode==="start"?"全书 · 开篇：只标出故事开始时已不在的人":"全书 · 终局：标出结局时已去世的人");
+  $("#ct").title=$("#ct").textContent;
+  if(document.activeElement===q&&q.value.trim()&&!composing) search(); else hideSearch();
+  DATA.nodes.forEach(n=>{
+    const v=visN(n); const was=n.g.style.display!=="none";
+    n.g.style.display=v?"":"none";
+    if(v){
+      n.tn.textContent=dispName(n); if(n.ts) n.ts.textContent=n.ph?(n.tag?n.tag+" · 未写明":"未写明"):tagOf(n); if(n.hg) layoutCard(n);
+      n.g.classList.toggle("dead",isDead(n)); updBox(n);
+      if(!was&&prev!==undefined){n.inner.classList.remove("pop");void n.inner.getBoundingClientRect();n.inner.classList.add("pop")}
+    }
+  });
+  DATA.heads.forEach(h=>{h.el.style.display=h.ids.some(i=>visN(byId[i]))?"":"none"});
+  DATA.nodes.forEach(n=>{ if(n.posT){ let c=n.posT[0]; for(const t of n.posT) if(lim()>=t.from) c=t; n.px=PAD+c.x*SX; n.py=PAD+c.y*SY; setPos(n); } });   // 随回目换位置（英莲在甄士隐身边，被拐后才去薛家）
+  layoutPills();
+  drawTree();
+  if(selected&&!visN(byId[selected])) closePanel(); else if(selected) openPanel(selected);
+  applyDim();
+  try{localStorage.setItem("hlm-ch",chapter)}catch(e){}
+  try{const url=new URL(location.href);if(mode==="ch"){url.searchParams.set("ch",chapter);url.searchParams.delete("all")}else{url.searchParams.set("all",mode);url.searchParams.delete("ch")}history.replaceState(null,"",url)}catch(_){}
+}
+function setChapter(c){const nc=Math.min(120,Math.max(1,c)); const prev=chapter, wasAll=showAll; chapter=nc; setMode('ch'); render(prev); fit(false)}
+
+// ---------- 选择：画出他的全部关系 ----------
+function rels(id){const out=[]; DATA.edges.forEach(e=>{ if(!visE(e)) return; if(e.a===id) out.push([e,e.b]); else if(e.b===id) out.push([e,e.a]); }); return out;}
+function applyDim(){
+  const f=selected; gL.innerHTML=""; gS.innerHTML="";
+  DATA.nodes.forEach(n=>{n.g.classList.toggle("sel",n.id===f);n.g.classList.remove("hl")});
+  gE.style.opacity=1; gT.style.opacity=1;
+  // 不再另画线：原图里已有的线，和选中人物有关的保持原样（略加粗），其余变半透明
+  [...gE.children,...gT.children].forEach(c=>{
+    const on=!!f&&!!c.dataset.r&&c.dataset.r.split(" ").includes(f);
+    c.classList.toggle("dimmed",!!f&&!on); c.classList.toggle("on",on);
+  });
+  if(!f){DATA.nodes.forEach(n=>n.g.classList.remove("dim"));return}
+  const rs=rels(f), near=new Set([f]); rs.forEach(([e,o])=>near.add(o));
+  DATA.nodes.forEach(n=>n.g.classList.toggle("dim",!near.has(n.id)));
+  rs.forEach(([e,oid])=>{ const b=byId[oid]; if(b&&b.px!=null) b.g.classList.add("hl"); });
+}
+function infoLim(){ return mode==="start"?1:lim() }   // 详情能说到哪一回：开篇只说第 1 回，终局说完，逐回就到当前回
+function openPanel(id){
+  const n=byId[id], L=infoLim();
+  const notes=n.notes.filter(x=>x.from<=L).map(x=>`<p class="note">${x.text}</p>`).join("");
+  const rs=rels(id).filter(([e,o])=>e.from<=L&&(e.until==null||L<e.until)&&byId[o].first<=L&&!e.noPanel); const groups={};
+  rs.forEach(([e,o])=>{(groups[e.t]=groups[e.t]||[]).push([e,o])});
+  const order=["spouse","love","parent","sibling","kin","servant","friend"];
+  const rel=order.filter(t=>groups[t]).map(t=>`<h3>${ETYPE[t].n}</h3><ul>`+groups[t].map(([e,o])=>`<li><a data-id="${o}">${dispName(byId[o])}</a><span>${e.l}</span></li>`).join("")+`</ul>`).join("");
+  const unseen=n.first>L, dead=isDead(n);
+  const meta=unseen?"":`${HOUSE_NAME[n.house]} · 第${n.first}回起${dead&&!n.ph?(mode==="start"?" · 故事开始前已去世":" · 第"+n.death+"回去世"):""}`;
+  $("#pbody").innerHTML=`<h2>${n.ph?(n.ptitle||"未写明"):dispName(n)}</h2><div class="meta">${meta}</div>${unseen?"<p>第一回里还没有出场。</p>":(n.desc?`<p>${n.desc}</p>`:"")}${unseen?"":notes}${unseen?"":(rel||'<p class="meta">暂时没有已知的关系。</p>')}`;
+  $("#panel").classList.add("on");
+  $("#pbody").querySelectorAll("a[data-id]").forEach(a=>a.onclick=()=>select(a.dataset.id));
+}
+function closePanel(){selected=null;$("#panel").classList.remove("on");applyDim()}
+function select(id){const n=byId[id]; if(!visN(n)) return; selected=id; openPanel(id); applyDim(); centerOn(n)}
+$("#px").onclick=closePanel;
+
+// ---------- 平移缩放 ----------
+function apply(){vp.setAttribute("transform",`translate(${view.x},${view.y}) scale(${view.k})`)}
+let fitMode=false, fitReady=false;
+function fit(all){ fitMode=!!all;
+  const r=svg.getBoundingClientRect(); const vis=DATA.nodes.filter(n=>visN(n)&&n.px!=null&&isFinite(n.px));
+  const tree=vis.filter(n=>n.py<PAD+5.0*SY);          // 默认只对准上方的家谱区
+  const use=(!all&&tree.length>=4)?tree:(vis.length>0?vis:DATA.nodes);
+  const box=ns=>({x0:Math.min(...ns.map(n=>n.px-n.w/2)),x1:Math.max(...ns.map(n=>n.px+n.w/2)),y0:Math.min(...ns.map(n=>n.py-n.h/2)),y1:Math.max(...ns.map(n=>n.py+n.h/2))});
+  const fitK=(bx,px,py)=>Math.min(r.width/(bx.x1-bx.x0+2*px),r.height/(bx.y1-bx.y0+2*py));
+  const bb=box(use); let k=Math.min(1.3,fitK(bb,30,50));
+  if(!all&&mode==="ch"&&k<0.85){                      // 图太大放不下：让本回故事的中心人物居中（按本回正文里出现最多的人物算）
+    const fn=((DATA.chapters[chapter-1]||{}).f||[]).map(id=>byId[id]).filter(n=>n&&visN(n)&&isFinite(n.px));
+    if(fn.length&&r.width<720){ const m=fn[0], kk=Math.min(1,Math.max(.8,fitK(box([m]),SX*1.6,SY*1.6)));      // 手机：只对准本回最主要的那个人，周围一圈亲属自然入画
+      setView(kk,r.width/2-m.px*kk,r.height*(.46)-m.py*kk,fitReady); return; }
+    if(fn.length){ const fb=box(fn), kk=Math.max(.85,Math.min(1.3,fitK(fb,SX*1.4,SY*1.1)));
+      setView(kk,r.width/2-(fb.x0+fb.x1)/2*kk,r.height/2-(fb.y0+fb.y1)/2*kk,fitReady); return; }
+  }
+  const x0=bb.x0-30,x1=bb.x1+30,y0=bb.y0-50,y1=bb.y1+30;
+  if(!all&&k<0.85){                                    // 图太宽时，保证字看得清，并以宝玉为中心，其余往两边拖
+    k=0.85; const f=byId.baoyu; const cx=visN(f)?f.px:(x0+x1)/2;
+    setView(k,r.width/2-cx*k,Math.max(20,(r.height-(y1-y0)*k)/2)-y0*k,fitReady); return;
+  }
+  setView(k,(r.width-(x1-x0)*k)/2-x0*k,(r.height-(y1-y0)*k)/2-y0*k,fitReady);
+}
+let anim=null, inertia=null;
+const clampK=k=>Math.min(2.6,Math.max(.25,k));
+let animEnd=null;
+function setView(k,x,y,animate){
+  cancelAnimationFrame(anim); cancelAnimationFrame(inertia); clearTimeout(animEnd);
+  if(!animate||reducedMotion.matches){view.k=k;view.x=x;view.y=y;apply();return}
+  animEnd=setTimeout(()=>{cancelAnimationFrame(anim);view.k=k;view.x=x;view.y=y;apply()},400);   // 兜底：动画帧被节流时也能到达目标
+  const s={k:view.k,x:view.x,y:view.y}, t0=performance.now(), D=340;
+  const step=t=>{const p=Math.min(1,(t-t0)/D), e=1-Math.pow(1-p,3); view.k=s.k+(k-s.k)*e; view.x=s.x+(x-s.x)*e; view.y=s.y+(y-s.y)*e; apply(); if(p<1) anim=requestAnimationFrame(step)};
+  anim=requestAnimationFrame(step);
+}
+function centerOn(n){
+  const r=svg.getBoundingClientRect(), wide=r.width>720;
+  const k=Math.max(view.k,.85), rightPad=wide?330:0;
+  // 手机竖屏：详情是从底部升起的面板，人物要落在面板上方那块可见区域的正中
+  const sheet=wide?0:Math.min(r.height*.46,$("#panel").offsetHeight||r.height*.4);
+  setView(k,(r.width-rightPad)/2-n.px*k,(r.height-sheet)/2-n.py*k,true);
+}
+
+function zoomAt(mx,my,f,animate){
+  const nk=clampK(view.k*f); const x=mx-(mx-view.x)*nk/view.k, y=my-(my-view.y)*nk/view.k;
+  if(animate) setView(nk,x,y,true); else {cancelAnimationFrame(anim);cancelAnimationFrame(inertia);view.k=nk;view.x=x;view.y=y;apply();}
+}
+// 拖动：从任何地方都能拖（卡片上也行），超过 4 像素才算拖动，松手后带一点惯性；双指捏合缩放
+const ptrs=new Map(); let gesture=null, moved=false, vel={x:0,y:0}, lastP=null;
+svg.addEventListener("pointerdown",e=>{
+  ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY}); cancelAnimationFrame(anim); cancelAnimationFrame(inertia);
+  if(ptrs.size===1){ gesture={type:"pan",x:e.clientX,y:e.clientY,vx:view.x,vy:view.y}; moved=false; vel={x:0,y:0}; lastP={x:e.clientX,y:e.clientY,t:performance.now()}; }
+  else if(ptrs.size===2){ const [a,b]=[...ptrs.values()]; gesture={type:"pinch",d:Math.hypot(a.x-b.x,a.y-b.y)||1,k:view.k,cx:(a.x+b.x)/2,cy:(a.y+b.y)/2,vx:view.x,vy:view.y}; moved=true; }
+});
+svg.addEventListener("pointermove",e=>{
+  if(!ptrs.has(e.pointerId)||!gesture) return; ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(gesture.type==="pan"&&ptrs.size===1){
+    const dx=e.clientX-gesture.x, dy=e.clientY-gesture.y;
+    if(!moved&&Math.hypot(dx,dy)>4){ moved=true; svg.classList.add("drag"); try{svg.setPointerCapture(e.pointerId)}catch(_){} }
+    if(moved){ view.x=gesture.vx+dx; view.y=gesture.vy+dy; apply(); const now=performance.now(), dt=Math.max(1,now-lastP.t); vel={x:(e.clientX-lastP.x)/dt,y:(e.clientY-lastP.y)/dt}; lastP={x:e.clientX,y:e.clientY,t:now}; }
+  } else if(gesture.type==="pinch"&&ptrs.size===2){
+    const [a,b]=[...ptrs.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y), nk=clampK(gesture.k*d/gesture.d), r=svg.getBoundingClientRect(), cx=gesture.cx-r.left, cy=gesture.cy-r.top;
+    view.x=cx-(cx-gesture.vx)*nk/gesture.k; view.y=cy-(cy-gesture.vy)*nk/gesture.k; view.k=nk; apply();
+  }
+});
+const endPtr=e=>{
+  ptrs.delete(e.pointerId); svg.classList.remove("drag");
+  if(ptrs.size===0&&gesture&&gesture.type==="pan"&&moved){                      // 惯性滑行
+    let vx=vel.x*16, vy=vel.y*16; const idle=performance.now()-lastP.t; if(idle>80){vx=vy=0}
+    const step=()=>{ view.x+=vx; view.y+=vy; apply(); vx*=.93; vy*=.93; if(Math.hypot(vx,vy)>.4) inertia=requestAnimationFrame(step); }; if(!reducedMotion.matches&&Math.hypot(vx,vy)>.8) inertia=requestAnimationFrame(step);
+  }
+  if(ptrs.size===0) gesture=null; else if(ptrs.size===1){ const p=[...ptrs.values()][0]; gesture={type:"pan",x:p.x,y:p.y,vx:view.x,vy:view.y}; vel={x:0,y:0}; lastP={x:p.x,y:p.y,t:performance.now()}; }
+};
+svg.addEventListener("pointerup",endPtr); svg.addEventListener("pointercancel",endPtr);
+// 滚轮：触控板双指滑动＝平移，双指捏合（或 ⌘/Ctrl＋滚轮）＝缩放，鼠标滚轮＝缩放
+svg.addEventListener("wheel",e=>{
+  e.preventDefault(); cancelAnimationFrame(anim); cancelAnimationFrame(inertia);
+  const r=svg.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top;
+  let dx=e.deltaX, dy=e.deltaY; if(e.deltaMode===1){dx*=16;dy*=16}
+  const mouseWheel=!e.ctrlKey&&e.deltaMode===0&&dx===0&&Math.abs(dy)>=50&&Number.isInteger(dy);
+  if(e.ctrlKey||e.metaKey){ zoomAt(mx,my,Math.exp(-dy*(Math.abs(dy)>40?.0022:.011))); }
+  else if(mouseWheel||e.deltaMode===1){ zoomAt(mx,my,Math.exp(-dy*.0016)); }
+  else { if(e.shiftKey&&dx===0){dx=dy;dy=0} view.x-=dx; view.y-=dy; apply(); }
+},{passive:false});
+svg.addEventListener("dblclick",e=>{ if(e.target.closest(".node")) return; const r=svg.getBoundingClientRect(); zoomAt(e.clientX-r.left,e.clientY-r.top,1.7,true); });
+svg.addEventListener("click",()=>{ if(moved){ moved=false; return } if(selected) closePanel(); });
+$("#zin").onclick=()=>{const r=svg.getBoundingClientRect(); zoomAt(r.width/2,r.height/2,1.35,true)};
+$("#zout").onclick=()=>{const r=svg.getBoundingClientRect(); zoomAt(r.width/2,r.height/2,1/1.35,true)};
+window.addEventListener("resize",()=>fit(false));
+
+
+// ---------- Search: composition-safe, with one current result list ----------
+const q=$("#q"), sug=$("#sug"), clearSearch=$("#qclear");
+let sugList=[], sugOn=-1, composing=false;
+function hideSearch(){
+  sugList=[];sugOn=-1;sug.style.display='none';sug.innerHTML='';
+  q.setAttribute('aria-expanded','false');q.removeAttribute('aria-activedescendant');
+  clearSearch.hidden=!q.value;
+}
+function searchableNames(n){
+  // A renamed character is searchable only by names known at the current chapter.
+  const future=new Set(!showAll?n.alt.filter(a=>a.from>chapter).map(a=>a.name):[]);
+  return [dispName(n),...n.aliases.filter(a=>!future.has(a))];
+}
+function search(){
+  clearSearch.hidden=!q.value;
+  const v=q.value.trim();if(!v){hideSearch();$('#search-status').textContent='';return}
+  sugList=DATA.nodes.filter(n=>!n.ph&&visN(n)&&searchableNames(n).some(a=>a.includes(v))).slice(0,8);sugOn=-1;
+  sug.innerHTML=sugList.length?sugList.map((n,i)=>`<button type="button" class="soption" role="option" tabindex="-1" aria-selected="false" id="sopt-${n.id}" data-i="${i}"><span>${dispName(n)}</span><span class="house">${HOUSE_NAME[n.house]}</span></button>`).join(''):'<div class="none">没有找到已出场的人物</div>';
+  sug.style.display='block';q.setAttribute('aria-expanded','true');q.removeAttribute('aria-activedescendant');
+  $('#search-status').textContent=sugList.length?`找到 ${sugList.length} 位人物`:'没有找到已出场的人物';
+  sug.querySelectorAll('[data-i]').forEach(b=>{b.onpointerdown=e=>e.preventDefault();b.onclick=()=>pick(+b.dataset.i)});
+}
+function pick(i){
+  if(composing||!q.value.trim()||sug.style.display==='none') return;
+  const n=sugList[i];if(!n||!visN(n))return;
+  q.value='';hideSearch();q.blur();select(n.id);
+}
+function markSuggestion(){
+  sug.querySelectorAll('[data-i]').forEach((b,i)=>b.setAttribute('aria-selected',i===sugOn?'true':'false'));
+  if(sugList[sugOn])q.setAttribute('aria-activedescendant','sopt-'+sugList[sugOn].id);else q.removeAttribute('aria-activedescendant');
+}
+q.addEventListener('compositionstart',()=>{composing=true});
+q.addEventListener('compositionend',()=>{composing=false;search()});
+q.addEventListener('input',e=>{clearSearch.hidden=!q.value;if(!e.isComposing&&!composing)search()});
+q.addEventListener('focus',()=>{closeMenus();if(q.value.trim())search()});
+q.addEventListener('focus',()=>$('.search').classList.add('open'));
+function collapseSearch(){setTimeout(()=>{const b=$('.search');if(!b.contains(document.activeElement)&&!q.value.trim())b.classList.remove('open')},180)}
+q.addEventListener('blur',collapseSearch);
+$('.search').addEventListener('focusout',()=>requestAnimationFrame(()=>{if(!document.activeElement.closest('.search'))hideSearch()}));
+q.addEventListener('keydown',e=>{
+  if(composing||e.isComposing||e.keyCode===229)return;
+  if(e.key==='Escape'){e.preventDefault();e.stopPropagation();q.value='';hideSearch();q.blur();return}
+  if(e.key==='Enter'){e.preventDefault();if(q.getAttribute('aria-expanded')==='true')pick(Math.max(0,sugOn));return}
+  if(!['ArrowDown','ArrowUp'].includes(e.key))return;
+  e.preventDefault();if(q.getAttribute('aria-expanded')!=='true'&&q.value.trim())search();
+  if(!sugList.length)return;
+  sugOn=e.key==='ArrowDown'?Math.min(sugList.length-1,sugOn+1):(sugOn<0?sugList.length-1:Math.max(0,sugOn-1));markSuggestion();
+});
+clearSearch.onpointerdown=e=>e.preventDefault();
+clearSearch.onclick=()=>{q.value='';hideSearch();q.focus()};
+
+// ---------- Chapter and appearance popovers ----------
+const grid=$("#cgrid"), paletteMenu=$("#palette-menu"), cbtn=$("#cbtn"), paletteButton=$("#palette-btn");
+grid.innerHTML='<div class="picker-head"><span>选择回目</span><button type="button" id="resume-ch" hidden></button></div><div class="gtop"></div><div class="chapter-list"></div>';
+[['start','全书 · 开篇'],['end','全书 · 终局']].forEach(([m,t])=>{
+  const b=document.createElement('button');b.type='button';b.textContent=t;b.dataset.m=m;
+  b.onclick=()=>{setMode(m);render();fit(false);closeMenu(grid,true)};grid.querySelector('.gtop').appendChild(b);
+});
+DATA.chapters.forEach(c=>{
+  const b=document.createElement('button');b.type='button';b.textContent=c.n;b.dataset.n=c.n;b.title=`第${c.n}回　${c.t}`;b.setAttribute('aria-label',`第 ${c.n} 回`);
+  b.onclick=()=>{setChapter(c.n);closeMenu(grid,true)};grid.querySelector('.chapter-list').appendChild(b);
+});
+$('#resume-ch').onclick=()=>{setChapter(chapter);closeMenu(grid,true)};
+function markGrid(){
+  grid.querySelectorAll('[data-m],[data-n]').forEach(b=>{
+    const active=b.dataset.m?b.dataset.m===mode:mode==='ch'&&+b.dataset.n===chapter;
+    b.classList.toggle('cur',active);b.setAttribute('aria-pressed',String(active));
+    if(b.dataset.n){if(active)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')}
+  });
+  $('#resume-ch').hidden=mode==='ch';$('#resume-ch').textContent=`回到第 ${chapter} 回`;
+}
+paletteMenu.innerHTML='<div class="picker-head"><span>选择配色</span></div><div class="palette-options"></div>';
+PALETTES.forEach(p=>{
+  const b=document.createElement('button');b.type='button';b.className='palette-option';b.dataset.pal=p.id;
+  b.innerHTML=`<span class="palette-sample" aria-hidden="true" ><i></i><i></i><i></i></span><span class="palette-name">${p.name}</span><span class="check" aria-hidden="true">✓</span>`;
+  b.onclick=()=>{palette=p.id;applyAppearance();saveAppearance();markAppearance()};
+  paletteMenu.querySelector('.palette-options').appendChild(b);
+});
+function saveAppearance(){
+  try{localStorage.setItem('hlm-pal',palette);localStorage.removeItem('hlm-theme')}catch(_){}
+  // An explicit palette URL should keep reflecting the option currently on screen.
+  try{const url=new URL(location.href);if(palette==='blue')url.searchParams.delete('pal');else url.searchParams.set('pal',palette);history.replaceState(null,'',url)}catch(_){}
+}
+function markAppearance(){
+  paletteMenu.querySelectorAll('[data-pal]').forEach(b=>{
+    b.setAttribute('aria-pressed',String(b.dataset.pal===palette));
+    const chosen=PALETTES.find(p=>p.id===b.dataset.pal),tokens=chosen.tokens,sample=b.querySelector('.palette-sample');
+    b.querySelector('.palette-name').textContent=chosen.name;
+    [['--sample-bg','--bg'],['--sample-a','--c-jia1'],['--sample-b','--c-jia2'],['--sample-c','--c-other']].forEach(([key,token])=>sample.style.setProperty(key,tokens[token]));
+  });
+  paletteButton.title=PALETTES.find(p=>p.id===palette).name;
+}
+function menuButton(menu){return menu===grid?cbtn:paletteButton}
+function closeMenu(menu,restore=false){
+  menu.hidden=true;menuButton(menu).setAttribute('aria-expanded','false');if(restore)menuButton(menu).focus();
+}
+function closeMenus(){closeMenu(grid);closeMenu(paletteMenu)}
+function placeMenu(menu){
+  const r=menuButton(menu).getBoundingClientRect(), vv=window.visualViewport;
+  const x=vv?vv.offsetLeft:0,y=vv?vv.offsetTop:0,W=vv?vv.width:innerWidth,H=vv?vv.height:innerHeight;
+  const w=Math.min(menu===grid?504:304,W-24);
+  menu.style.width=w+'px';menu.style.left=Math.max(x+12,Math.min(menu===grid?r.left:r.right-w,x+W-w-12))+'px';
+  const below=y+H-r.bottom-20,above=r.top-y-20;
+  const natural=menu.scrollHeight;
+  let available,top;
+  if(below>=Math.min(natural,240)||below>=above){available=Math.max(44,below);top=r.bottom+8}
+  else{available=Math.max(44,above);top=r.top-8-Math.min(natural,available)}
+  if(available>H-24||top<y+12||top+Math.min(natural,available)>y+H-12){available=Math.max(44,H-24);top=y+12}
+  menu.style.maxHeight=available+'px';menu.style.top=top+'px';
+}
+function openMenu(menu){
+  closeMenus();hideSearch();markGrid();markAppearance();menu.hidden=false;menuButton(menu).setAttribute('aria-expanded','true');placeMenu(menu);
+  const current=menu.querySelector('.cur,[aria-pressed="true"]')||menu.querySelector('button:not([hidden])');
+  if(current){current.focus({preventScroll:true});current.scrollIntoView({block:'nearest'})}
+}
+function toggleMenu(menu){if(menu.hidden)openMenu(menu);else closeMenu(menu,true)}
+cbtn.onclick=()=>toggleMenu(grid);paletteButton.onclick=()=>toggleMenu(paletteMenu);
+function menuKeys(e,menu){
+  if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeMenu(menu,true);return}
+  if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key))return;
+  const buttons=[...menu.querySelectorAll('button:not([hidden]):not(:disabled)')], i=buttons.indexOf(document.activeElement);
+  if(i<0)return;e.preventDefault();e.stopPropagation();
+  let step=1;
+  if(menu===paletteMenu&&['ArrowUp','ArrowDown'].includes(e.key))step=5;
+  if(menu===grid&&document.activeElement.dataset.n&&['ArrowUp','ArrowDown'].includes(e.key))step=getComputedStyle(grid.querySelector('.chapter-list')).gridTemplateColumns.split(' ').length;
+  let next=e.key==='Home'?0:e.key==='End'?buttons.length-1:i+(['ArrowLeft','ArrowUp'].includes(e.key)?-step:step);
+  next=Math.max(0,Math.min(buttons.length-1,next));buttons[next].focus();
+}
+[grid,paletteMenu].forEach(menu=>{
+  menu.addEventListener('keydown',e=>menuKeys(e,menu));
+  menu.addEventListener('focusout',()=>requestAnimationFrame(()=>{const active=document.activeElement;if(!menu.hidden&&!menu.contains(active)&&active!==menuButton(menu))closeMenu(menu)}));
+});
+function repositionMenus(){if(!grid.hidden)placeMenu(grid);if(!paletteMenu.hidden)placeMenu(paletteMenu)}
+window.addEventListener('resize',repositionMenus);window.visualViewport?.addEventListener('resize',repositionMenus);window.visualViewport?.addEventListener('scroll',repositionMenus);
+document.addEventListener('pointerdown',e=>{
+  if(!e.target.closest('#cgrid,#cbtn'))closeMenu(grid);
+  if(!e.target.closest('#palette-menu,#palette-btn'))closeMenu(paletteMenu);
+  if(!e.target.closest('.search'))hideSearch();
+});
+// The chapter shortcuts apply only in chapter mode and outside editing/menu controls.
+$('#prev').onclick=()=>{if(mode==='ch'&&chapter>1)setChapter(chapter-1)};
+$('#next').onclick=()=>{if(mode==='ch'&&chapter<120)setChapter(chapter+1)};
+window.addEventListener('keydown',e=>{
+  if(e.defaultPrevented||e.isComposing||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.target.closest('input,textarea,select,[contenteditable="true"],.popover'))return;
+  if(e.key==='Escape'){
+    if(!grid.hidden)closeMenu(grid,true);else if(!paletteMenu.hidden)closeMenu(paletteMenu,true);else if(!$('#lgdetail').hidden){setLegendOpen(false);$('#lgbtn').focus()}else closePanel();
+  }else if(e.key==='ArrowLeft'&&mode==='ch'){e.preventDefault();setChapter(chapter-1)}
+  else if(e.key==='ArrowRight'&&mode==='ch'){e.preventDefault();setChapter(chapter+1)}
+  else if(e.key==='/'){e.preventDefault();q.focus()}
+  else if(e.key==='+'||e.key==='=')$('#zin').click();else if(e.key==='-')$('#zout').click();
+});
+markAppearance();
+
+markGrid();
+render(); fit(false); fitReady=true;
+(function(){const h=document.querySelector('.hint'); if(!h) return; const gone=()=>h.classList.add('gone'); svg.addEventListener('pointerdown',gone,{once:true}); svg.addEventListener('wheel',gone,{once:true}); setTimeout(gone,9000);})(); if(QP.get('sel')&&byId[QP.get('sel')]) select(QP.get('sel'));
+
+
+</script>
+</body>
+</html>
